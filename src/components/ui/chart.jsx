@@ -32,7 +32,7 @@ function ChartContainer({
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`
 
   return (
-    <ChartContext.Provider value={{ config }}>
+    (<ChartContext.Provider value={{ config }}>
       <div
         data-slot="chart"
         data-chart={chartId}
@@ -46,7 +46,7 @@ function ChartContainer({
           {children}
         </RechartsPrimitive.ResponsiveContainer>
       </div>
-    </ChartContext.Provider>
+    </ChartContext.Provider>)
   );
 }
 
@@ -61,7 +61,7 @@ const ChartStyle = ({
   }
 
   return (
-    <style
+    (<style
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(([theme, prefix]) => `
@@ -77,7 +77,7 @@ return color ? `  --color-${key}: ${color};` : null
 }
 `)
           .join("\n"),
-      }} />
+      }} />)
   );
 }
 
@@ -115,9 +115,9 @@ function ChartTooltipContent({
 
     if (labelFormatter) {
       return (
-        <div className={cn("font-medium", labelClassName)}>
+        (<div className={cn("font-medium", labelClassName)}>
           {labelFormatter(value, payload)}
-        </div>
+        </div>)
       );
     }
 
@@ -143,7 +143,7 @@ function ChartTooltipContent({
   const nestLabel = payload.length === 1 && indicator !== "dot"
 
   return (
-    <div
+    (<div
       className={cn(
         "border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl",
         className
@@ -156,7 +156,7 @@ function ChartTooltipContent({
           const indicatorColor = color || item.payload.fill || item.color
 
           return (
-            <div
+            (<div
               key={item.dataKey}
               className={cn(
                 "[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5",
@@ -205,11 +205,11 @@ function ChartTooltipContent({
                   </div>
                 </>
               )}
-            </div>
+            </div>)
           );
         })}
       </div>
-    </div>
+    </div>)
   );
 }
 
@@ -229,7 +229,7 @@ function ChartLegendContent({
   }
 
   return (
-    <div
+    (<div
       className={cn(
         "flex items-center justify-center gap-4",
         verticalAlign === "top" ? "pb-3" : "pt-3",
@@ -240,7 +240,7 @@ function ChartLegendContent({
         const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
         return (
-          <div
+          (<div
             key={item.value}
             className={cn(
               "[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3"
@@ -255,10 +255,10 @@ function ChartLegendContent({
                 }} />
             )}
             {itemConfig?.label}
-          </div>
+          </div>)
         );
       })}
-    </div>
+    </div>)
   );
 }
 
