@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { Button } from "./components/ui/button";
-import { Route } from "react-router-dom";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import { Layout } from "./layout/Layout";
+import JavaEdition from "./java-edition/JavaEdition"
+import Bedrock from "./bedrock/Bedrock";
 function App() {
   const pages = [
     {
@@ -27,19 +28,16 @@ function App() {
   ];
   
   return (
-    <div className="flex">
-
-      {/* 
-            - galt nkhalik lik tstaf dyal files lik
-      Minecraft Pc:         mcecraft.com/java-edition
-      Minecraft telePhone:  mcecraft.com/bedrock
-      example ila khatrina mode d'pc mcecraft.com/java-edition/mods/mod-name 
-      */}
-      {/* 
-        <Route path="/shaders" element={<JavaEditionShaders />} /> 
-        
-      */}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          {/* ↓↓ m3arftch fen n7athom wesh ndir kol wa7d fihom layout dyalo hta tkalf↓↓ */}
+          <Route path="java-edition" element={<JavaEdition />} />
+          <Route path="bedrock" element={<Bedrock />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
