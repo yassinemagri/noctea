@@ -73,7 +73,7 @@ const Home = () => {
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
-        
+        <Button>hey</Button>
       </div>
     </div>
   );
