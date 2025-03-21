@@ -1,8 +1,11 @@
 import React from 'react'
+import { JavaEdition } from './JavaEdition'
 
 const Home = () => {
   return (
-    <div>This goes to home</div>
+    <div>
+      <JavaEdition />
+    </div>
   )
 }
 

@@ -1,9 +1,11 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Header from "../components/Header";
 
 const Layout = () => {
   return (
-    <main>
+    <main className="min-h-screen bg-black">
+      <Header />
       <Outlet />
     </main>
   );
