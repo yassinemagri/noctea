@@ -23,12 +23,12 @@ const Header = () => {
       {/* Navigation Bar */}
       <div className="bg-black/80 p-4 mx-[104px] rounded-xl">
         <div className="mx-auto flex max-w-6xl  justify-between items-center">
-            <Link to="/" class="bg-[#1A1A1A] text-[#ff5e41] font-play font-bold px-6 py-3 rounded-lg text-xl">Noctéa</Link>
+            <Link to="/" className="bg-[#1A1A1A] text-[#ff5e41] font-play font-bold px-6 py-3 rounded-lg text-xl">Noctéa</Link>
           <div className='flex space-x-6 items-center'>
-            <Link to="#students" className="font-cairo text-gray-300 font-bold hover:text-[#D3442B]">Students</Link>
-            <Link to="#mods" className="font-cairo text-gray-300 font-bold hover:text-[#D3442B]">Mods</Link>
-            <Link to="#resource-packs" className="font-cairo text-gray-300 font-bold hover:text-[#D3442B]">Resource Packs</Link>
-            <Link to="#ultra" className="font-cairo bg-[#D3442B] text-white font-bold hover:bg-[#ff5e41]/90 px-6 py-2 rounded-lg">Ultra</Link>
+            <Link to="#students" className="font-cairo text-gray-300 font-bold hover:text-primary">Students</Link>
+            <Link to="#mods" className="font-cairo text-gray-300 font-bold hover:text-primary">Mods</Link>
+            <Link to="#resource-packs" className="font-cairo text-gray-300 font-bold hover:text-primary">Resource Packs</Link>
+            <Link to="#ultra" className="font-cairo bg-primary text-white font-bold hover:bg-[#ff5e41]/90 px-6 py-2 rounded-lg">Ultra</Link>
           </div>
         </div>
       </div>

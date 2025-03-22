@@ -12,8 +12,8 @@
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
+  --primary: #D3442B;
+  --primary-foreground: #ff5e41;
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.967 0.001 286.375);
@@ -137,30 +137,59 @@
   }
   body {
     @apply bg-background text-foreground;
+    --sb-track-color: #000000;
+    --sb-thumb-color: #ff5e41;
+    --sb-size: 4px;
   }
-}
+  body::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
 
-body {
-  --sb-track-color: #000000;
-  --sb-thumb-color: #ff5e41;
-  --sb-size: 4px;
-}
+  body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+  }
 
-body::-webkit-scrollbar {
-  width: var(--sb-size)
-}
-
-body::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-}
-
-body::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
+  body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+  }
 }
 
 @supports not selector(::-webkit-scrollbar) {
   body {
-    scrollbar-color: var(--sb-thumb-color)
-                     var(--sb-track-color);
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }
+  /* Custom scrollbar styling using the provided variables */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: var(--sb-size);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: calc(var(--sb-size) / 2);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--sb-thumb-color);
+    opacity: 0.8;
+  }
+
+  /* Firefox scrollbar styling */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+
+  /* For select elements specifically */
+  select.custom-scrollbar option {
+    padding: 8px;
+  }
+
+  select.custom-scrollbar option:hover,
+  select.custom-scrollbar option:focus {
+    background-color: #252525;
+  }
