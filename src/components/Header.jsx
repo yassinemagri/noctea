@@ -22,7 +22,7 @@ const Header = () => {
 
       {/* Navigation Bar */}
       <div className="bg-black/80 p-4 mx-[104px] rounded-xl">
-        <div className="mx-auto flex max-w-6xl  justify-between items-center">
+        <div className="mx-auto flex max-w-6xl justify-between items-center">
             <Link to="/" className="bg-[#1A1A1A] text-[#ff5e41] font-play font-bold px-6 py-3 rounded-lg text-xl">Noctéa</Link>
           <div className='flex space-x-6 items-center'>
             <Link to="#students" className="font-cairo text-gray-300 font-bold hover:text-primary">Students</Link>
