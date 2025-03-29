@@ -35,14 +35,14 @@ const Home = () => {
     return (
     <div className="container mx-auto mt-8 bg-zinc-900 rounded-lg p-4">
       <div className="mb-4">
-        <div className="bg-zinc-950 text-center text-primary py-2 px-4 mb-2">Mod Loaders</div>
+        {/* <div className="bg-zinc-950 text-center text-primary py-2 px-4 mb-2">Mod Loaders</div> */}
         <Tabs defaultValue={activeLoader} onValueChange={setActiveLoader} className="w-full">
           <TabsList className="w-full grid grid-cols-4 h-auto bg-zinc-950">
             {loaders.map((loader) => (
               <TabsTrigger
                 key={loader}
                 value={loader}
-                className={`py-2 data-[state=active]:bg-red-500 data-[state=active]:text-white`}
+                className={`py-2 data-[state=active]:bg-violet data-[state=active]:text-white`}
               >
                 {loader}
               </TabsTrigger>
@@ -58,7 +58,7 @@ const Home = () => {
               <TabsTrigger
                 key={option}
                 value={option}
-                className={`py-2 data-[state=active]:bg-red-500 data-[state=active]:text-white`}
+                className={`py-2 data-[state=active]:bg-violet data-[state=active]:text-white`}
               >
                 {option}
               </TabsTrigger>
@@ -78,11 +78,6 @@ const Home = () => {
         />
       </div>
 
-      <div className="space-y-4">
-        {filteredMods.map((mod) => (
-          <ModCard key={mod.id} mod={mod} />
-        ))}
-      </div>
     </div>
   )
 }

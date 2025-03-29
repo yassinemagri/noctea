@@ -21,13 +21,13 @@ function ModCard({ mod }) {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-semibold">{mod.name}</h3>
-              <p className="text-red-500 text-sm">By {mod.author}</p>
+              <p className="text-violet text-sm">By {mod.author}</p>
               <p className="text-gray-400 mt-2">{mod.description}</p>
             </div>
 
             <div className="flex gap-2">
-              <Button variant="default" className="bg-red-500 hover:bg-red-600 h-8 px-3 py-1">
-                <Download size={16} className="mr-1" />
+              <Button variant="default" className="bg-violet text-[#eeedff] hover:bg-violet h-8 px-3 py-1 cursor-pointer">
+                <Download size={16} className="mr-1 " />
                 Download
               </Button>
               <Button
@@ -64,8 +64,8 @@ function ModCard({ mod }) {
               <span>{mod.fileSize}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Download size={14} />
-              <span>{mod.downloads}</span>
+              <Download size={14}/>
+              <span >{mod.downloads}</span>
             </div>
             <div className="flex items-center gap-1">
               <Calendar size={14} />
@@ -74,7 +74,7 @@ function ModCard({ mod }) {
           </div>
 
           <div className="mt-2">
-            <Badge variant="default" className="bg-red-500 hover:bg-red-500 text-white">
+            <Badge variant="default" className="bg-violet hover:bg-violet text-white">
               {mod.loader}
             </Badge>
           </div>
