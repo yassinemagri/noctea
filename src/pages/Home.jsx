@@ -33,7 +33,10 @@ const Home = () => {
       mod.loader === activeLoader && (searchQuery === "" || mod.name.toLowerCase().includes(searchQuery.toLowerCase())),
   )
     return (
+      <>
+      
     <div className="container mx-auto mt-8 bg-zinc-900 rounded-lg p-4">
+
       <div className="mb-4">
         {/* <div className="bg-zinc-950 text-center text-primary py-2 px-4 mb-2">Mod Loaders</div> */}
         <Tabs defaultValue={activeLoader} onValueChange={setActiveLoader} className="w-full">
@@ -79,6 +82,12 @@ const Home = () => {
       </div>
 
     </div>
+    <h1>Latest Resource Packs : </h1>
+    <div className="space-y-4">
+      {filteredMods.map((mod) => (
+        <ModCard key={mod.id} mod={mod} />
+      ))}
+    </div></>
   )
 }
 
