@@ -24,7 +24,7 @@ export const mineCraftEndPoint = async () => {
     }
   };
 
-export const allMods = async () => {
+export const getAllMods = async () => {
     try {
         const allModsURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}`
         const response = await fetch(allModsURL, { method: "GET", headers: headers });
@@ -36,9 +36,14 @@ export const allMods = async () => {
         console.error("Fetch error :", error);
     }
 }
-export const onlyModById = async (modId) => {
+export const getModById = async (modId,modLoaderId) => {
+    if(modLoaderId) {
+        if(!(modId === 6 || modId === 4471)) {
+            throw new Error("This mod category doesn't have a mod loader!")
+        }
+    }
     try {
-        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${modId}&mainFileId=6295151`
+        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${modId}${modLoaderId && `&modLoaderType=${modLoaderId}`}&pageSize=5`
         const response = await fetch(modByIdURL, { method: "GET", headers: headers });
         if (!response.ok) {
             throw new Error("HTTP error! Status:", response.status);

@@ -1,21 +1,26 @@
 import React, {useState} from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { JavaEdition } from './JavaEdition'
-import { allMods, onlyModById } from '../data/api'
+import { getAllMods, getModById } from '../data/api'
 import { mods } from '../data/mods';
 import ModCard from '@/components/ModCard';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 export async function loader() {
-  const classIds = [
-      {name : "Mods", id : 6 },
-      {name : "Modpacks", id : 4471 },
-      {name : "Worlds", id : 17 },
-      {name : "Ressource Packs", id : 12 },
+  const modLoaderIds = [
+    {name : "Forge", id : 1},
+    {name : "Fabric", id : 4 },
+    {name : "Quilt", id : 5 },
+    {name : "NeoForge", id : 6 },
   ]
-  // const data = await mineCraftEndPoint();
-  const data = await onlyModById(6);
+  const classIds = [
+    {name : "Mods", id : 6},
+    {name : "Modpacks", id : 4471 },
+    {name : "Worlds", id : 17 },
+    {name : "Ressource Packs", id : 12 },
+  ]
+  const data = await getModById(6,5);
   return data;
 } 
 const Home = () => {
