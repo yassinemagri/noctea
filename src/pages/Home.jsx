@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { JavaEdition } from './JavaEdition'
-import { getAllMods, getModById } from '../data/api'
+import { getAllMods, getModById, getFiles } from '../data/api'
 import { mods } from '../data/mods';
 import ModCard from '@/components/ModCard';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -27,7 +27,7 @@ const Home = () => {
   const mineCraftEndPoint = useLoaderData();
 
   // mineCraftEndPoint.data.map(data=> console.log(data))
- 
+ console.log(mineCraftEndPoint)
   const [activeLoader, setActiveLoader] = useState("NEOFORGE");
   const [activeSort, setActiveSort] = useState("Popularity");
   const [searchQuery, setSearchQuery] = useState("");
