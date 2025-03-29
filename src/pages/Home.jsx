@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { JavaEdition } from './JavaEdition'
-import { getAllMods, getModById, getFiles } from '../data/api'
-import { mods } from '../data/mods';
+import { getAllModsByClassId } from '../data/api'
 import ModCard from '@/components/ModCard';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
@@ -20,7 +19,7 @@ export async function loader() {
     {name : "Worlds", id : 17 },
     {name : "Ressource Packs", id : 12 },
   ]
-  const data = await getModById(6,5);
+  const data = await getAllModsByClassId(6);
   return data;
 }
 const Home = () => {
@@ -46,12 +45,6 @@ const Home = () => {
     "A-Z",
   ];
 
-  const filteredMods = mods.filter(
-    (mod) =>
-      mod.loader === activeLoader &&
-      (searchQuery === "" ||
-        mod.name.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
   return (
     <>
       <div className="container mx-auto mt-8 bg-zinc-900 rounded-lg p-4">
