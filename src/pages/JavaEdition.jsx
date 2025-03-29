@@ -133,7 +133,10 @@ export const JavaEdition = () => {
               </div>
             </div>
           </div>
+
+          
         </div>
+        
       </div>
     </div>
   );
