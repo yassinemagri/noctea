@@ -36,14 +36,28 @@ export const getAllMods = async () => {
         console.error("Fetch error :", error);
     }
 }
-export const getModById = async (modId,modLoaderId) => {
+export const getModByClassId = async (classId,modLoaderId) => {
     if(modLoaderId) {
-        if(!(modId === 6 || modId === 4471)) {
+        if(!(classId === 6 || classId === 4471)) {
             throw new Error("This mod category doesn't have a mod loader!")
         }
     }
     try {
-        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${modId}${modLoaderId && `&modLoaderType=${modLoaderId}`}&pageSize=5`
+        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}${modLoaderId && `&modLoaderType=${modLoaderId}`}&pageSize=5`
+        const response = await fetch(modByIdURL, { method: "GET", headers: headers });
+        if (!response.ok) {
+            throw new Error("HTTP error! Status:", response.status);
+        }
+        return await response.json();
+    }catch(error) {
+        console.error("Fetch error :", error);
+    }
+}
+
+export const getAllModsByClassId = async (classId) => {
+    if(!classId) throw new Error("Please provide a class Id!");
+    try {
+        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}`
         const response = await fetch(modByIdURL, { method: "GET", headers: headers });
         if (!response.ok) {
             throw new Error("HTTP error! Status:", response.status);
