@@ -1,7 +1,7 @@
 export const mods = [
     {
       id: "1",
-      name: "Easy Netherite",
+      name: "T",
       author: "Sayd101",
       description: "Convert all Netherite tools to Netherite",
       creationDate: "Feb 00, 2005",
