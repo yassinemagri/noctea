@@ -53,3 +53,16 @@ export const getModById = async (modId,modLoaderId) => {
         console.error("Fetch error :", error);
     }
 }
+
+export const getFiles = async (modId, fileId) => {
+    try {
+        const modByIdURL = `${baseURL}/v1/mods/${modId}/files/${fileId}`
+        const response = await fetch(modByIdURL, { method: "GET", headers: headers });
+        if (!response.ok) {
+            throw new Error("HTTP error! Status:", response.status);
+        }
+        return await response.json();
+    }catch(error) {
+        console.error("Fetch error :", error);
+    }
+}
