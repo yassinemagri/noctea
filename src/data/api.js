@@ -5,26 +5,8 @@ const headers = {
 };
 const baseURL = 'https://api.curseforge.com'
 const minecraftId = '432'
-// For Ref
-export const mineCraftEndPoint = async () => {
-    try {
-        const modId = "1114962"; // Your mod ID
-        const fileId = "5782724"; // Your file ID
-        // const versionTypesURL = `${baseURL}/v1/games/${minecraftId}/version-types`
-        // const searchMods = `${baseURL}/v1/mods/search?gameId=${minecraftId}`
-        // const filesURL = `${baseURL}/v1/mods/${modId}/files/`
-        // const singleFileURL = `${baseURL}/v1/mods/${modId}/files/${fileId}`
-        const response = await fetch(ressourcePackCategory, { method: "GET", headers: headers });
-        if (!response.ok) {
-            throw new Error("HTTP error! Status:", response.status);
-        }
-        return await response.json();
-    }catch(error) {
-        console.error("Fetch error :", error);
-    }
-  };
-
-export const getAllMods = async () => {
+// It gets all mods categories
+export const getAllCategories = async () => {
     try {
         const allModsURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}`
         const response = await fetch(allModsURL, { method: "GET", headers: headers });
@@ -36,6 +18,7 @@ export const getAllMods = async () => {
         console.error("Fetch error :", error);
     }
 }
+// It gets specific category by class Id and specific Mod loader optional
 export const getModByClassId = async (classId,modLoaderId) => {
     if(modLoaderId) {
         if(!(classId === 6 || classId === 4471)) {
@@ -43,7 +26,7 @@ export const getModByClassId = async (classId,modLoaderId) => {
         }
     }
     try {
-        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}${modLoaderId && `&modLoaderType=${modLoaderId}`}&pageSize=5`
+        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}${modLoaderId && `&modLoaderType=${modLoaderId}`}`
         const response = await fetch(modByIdURL, { method: "GET", headers: headers });
         if (!response.ok) {
             throw new Error("HTTP error! Status:", response.status);
@@ -53,11 +36,10 @@ export const getModByClassId = async (classId,modLoaderId) => {
         console.error("Fetch error :", error);
     }
 }
-
-export const getAllModsByClassId = async (classId) => {
-    if(!classId) throw new Error("Please provide a class Id!");
+// It gets a Single Mod(Not Category)
+export const getMod = async (modId) => {
     try {
-        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}`
+        const modByIdURL = `${baseURL}/v1/mods/${modId}`
         const response = await fetch(modByIdURL, { method: "GET", headers: headers });
         if (!response.ok) {
             throw new Error("HTTP error! Status:", response.status);
@@ -67,8 +49,21 @@ export const getAllModsByClassId = async (classId) => {
         console.error("Fetch error :", error);
     }
 }
-
-export const getFiles = async (modId, fileId) => {
+// It gets all Files by Mod Id
+export const getFilesByModId = async (modId) => {
+    try {
+        const modByIdURL = `${baseURL}/v1/mods/${modId}/files`
+        const response = await fetch(modByIdURL, { method: "GET", headers: headers });
+        if (!response.ok) {
+            throw new Error("HTTP error! Status:", response.status);
+        }
+        return await response.json();
+    }catch(error) {
+        console.error("Fetch error :", error);
+    }
+}
+// It gets a single File by Mod Id
+export const getFileByModId = async (modId, fileId) => {
     try {
         const modByIdURL = `${baseURL}/v1/mods/${modId}/files/${fileId}`
         const response = await fetch(modByIdURL, { method: "GET", headers: headers });
