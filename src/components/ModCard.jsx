@@ -1,15 +1,17 @@
-import { Calendar, Clock, Download, ExternalLink, Star, BarChart } from "lucide-react"
+import { Calendar, Clock, Download, ExternalLink, Star, BarChart, Database } from "lucide-react"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
+import { format } from "date-fns";
 
 function ModCard({ mod }) {
+  console.log(mod)
   return (
     <Card className="bg-zinc-900 border-none">
       <CardContent className="p-4 flex gap-4">
         <div className="flex-shrink-0">
           <img
-            src={mod.imageUrl || "/placeholder.svg"}
+            src={mod.logo.thumbnailUrl || "/placeholder.svg"}
             alt={mod.name}
             width={100}
             height={100}
@@ -21,8 +23,8 @@ function ModCard({ mod }) {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-semibold">{mod.name}</h3>
-              <p className="text-violet text-sm">By {mod.author}</p>
-              <p className="text-gray-400 mt-2">{mod.description}</p>
+              <p className="text-violet text-sm">By {mod.authors[0].name}</p>
+              <p className="text-gray-400 mt-2">{mod.summary}</p>
             </div>
 
             <div className="flex gap-2">
@@ -57,19 +59,15 @@ function ModCard({ mod }) {
           <div className="flex gap-4 mt-4 text-sm text-gray-400">
             <div className="flex items-center gap-1">
               <Calendar size={14} />
-              <span>{mod.creationDate}</span>
+              <span>{format(mod.dateCreated, "MMM dd, yyyy")}</span>
             </div>
             <div className="flex items-center gap-1">
               <Clock size={14} />
-              <span>{mod.fileSize}</span>
+              <span>{format(mod.dateModified, "MMM dd, yyyy")}</span>
             </div>
             <div className="flex items-center gap-1">
               <Download size={14}/>
-              <span >{mod.downloads}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Calendar size={14} />
-              <span>{mod.lastUpdated}</span>
+              <span >{mod.downloadCount}</span>
             </div>
           </div>
 

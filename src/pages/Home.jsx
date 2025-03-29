@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { JavaEdition } from './JavaEdition'
 import { getAllMods, getModById } from '../data/api'
@@ -25,12 +25,18 @@ export async function loader() {
 }
 const Home = () => {
   const mineCraftEndPoint = useLoaderData();
-  console.log(mineCraftEndPoint);
+
+  // mineCraftEndPoint.data.map(data=> console.log(data))
+ 
   const [activeLoader, setActiveLoader] = useState("NEOFORGE");
   const [activeSort, setActiveSort] = useState("Popularity");
   const [searchQuery, setSearchQuery] = useState("");
-
-  const loaders = ["FORGE", "FABRIC", "NEOFORGE", "QUILT"];
+  const modLoaderIds = [
+    {name : "Forge", id : 1},
+    {name : "Fabric", id : 4 },
+    {name : "Quilt", id : 5 },
+    {name : "NeoForge", id : 6 },
+  ]
   const sortOptions = [
     "Relevancy",
     "Popularity",
@@ -57,13 +63,13 @@ const Home = () => {
             className="w-full"
           >
             <TabsList className="w-full grid grid-cols-4 h-auto bg-zinc-950">
-              {loaders.map((loader) => (
+              {modLoaderIds.map((loader) => (
                 <TabsTrigger
-                  key={loader}
-                  value={loader}
+                  key={loader.id}
+                  value={loader.name}
                   className={`py-2 data-[state=active]:bg-violet data-[state=active]:text-white`}
                 >
-                  {loader}
+                  {loader.name}
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -105,7 +111,7 @@ const Home = () => {
        <div className="m-4">
         <h1 className="my-4">Latest Mods : </h1>
         <div className="space-y-4">
-          {filteredMods.map((mod) => (
+          {mineCraftEndPoint.data.map((mod) => (
             <ModCard key={mod.id} mod={mod} />
           ))}
           </div>
