@@ -1,18 +1,26 @@
 import React, {useState} from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { JavaEdition } from './JavaEdition'
-import { mineCraftEndPoint } from '../data/api'
+import { allMods, onlyModById } from '../data/api'
 import { mods } from '../data/mods';
 import ModCard from '@/components/ModCard';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 export async function loader() {
-  const data = await mineCraftEndPoint();
+  const classIds = [
+      {name : "Mods", id : 6 },
+      {name : "Modpacks", id : 4471 },
+      {name : "Worlds", id : 17 },
+      {name : "Ressource Packs", id : 12 },
+  ]
+  // const data = await mineCraftEndPoint();
+  const data = await onlyModById(6);
   return data;
 } 
 const Home = () => {
-  // const mineCraftEndPoint = useLoaderData();
+  const mineCraftEndPoint = useLoaderData();
+  console.log(mineCraftEndPoint)
   const [activeLoader, setActiveLoader] = useState("NEOFORGE")
   const [activeSort, setActiveSort] = useState("Popularity")
   const [searchQuery, setSearchQuery] = useState("")
