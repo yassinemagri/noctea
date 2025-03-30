@@ -13,6 +13,7 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { format } from "date-fns";
 import DownloadDialog from "./DownloadDialog";
+import { useState } from "react";
 
 function ModCard({ mod, activeLoader }) {
   // console.log(mod.latestFiles[0].gameVersions)
