@@ -23,7 +23,7 @@ function ModCard({ mod, activeLoader }) {
       <CardContent className="p-4 flex gap-4 max-lg:flex-col max-lg:items-center">
         <div className="flex-shrink-0">
           <img
-            src={mod.logo.thumbnailUrl || "/placeholder.svg"}
+            src={mod.logo?.thumbnailUrl || ""}
             alt={mod.name}
             width={100}
             height={100}

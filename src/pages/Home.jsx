@@ -1,29 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import { getAllCategories, getModByClassId } from "../data/api";
+import { getAllCategories, getAllCategoriesWithLoader } from "../data/api";
 import ModCard from "@/components/ModCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 export async function loader({ request }) {
-  const loaderId = new URL(request.url).searchParams.get("loaderId");
-  console.log(loaderId);
-  if (loaderId) {
-    const data = await getAllCategories(loaderId);
-    return data;
+  const modLoader = new URL(request.url).searchParams.get("modLoader");
+  const sortField = new URL(request.url).searchParams.get("sortField");
+  if (modLoader) {
+    console.log(modLoader)
+    const modsWithLoader = await getAllCategoriesWithLoader(modLoader);
+    return modsWithLoader;
   }
-  const data = await getAllCategories();
-  return data;
+  if (sortField) {
+    console.log(sortField)
+    const modsSorted = await getAllCategories(sortField);
+    return modsSorted;
+  }
+  const mods = await getAllCategories();
+  return mods;
 }
 const Home = () => {
   const data = useLoaderData();
   const [searchParams, setSearchParams] = useSearchParams();
-
-  function searchLoader(loader) {
-    const filterKeyValues = Object.entries(loader);
-    setSearchParams(() => {
-      return filterKeyValues;
+  function filter(key,value) {
+    const filterKeyValues = {
+      [key] : value
+    };
+    console.log(filterKeyValues)
+    setSearchParams(() =>{
+      return filterKeyValues
     });
+    console.log(searchParams)
   }
  
   const classIds = [
@@ -32,25 +41,23 @@ const Home = () => {
     { name: "Worlds", classId: 17 },
     { name: "Ressource Packs", classId: 12 },
   ];
-  // mineCraftEndPoint.data.map(data=> console.log(data))
-  //  console.log(mineCraftEndPoint)
   const [activeLoader, setActiveLoader] = useState("All");
-  const [activeSort, setActiveSort] = useState("Popularity");
+  const [activeSort, setActiveSort] = useState("Relevancy");
   const [searchQuery, setSearchQuery] = useState("");
-  const modLoaderIds = [
+  const modLoaders = [
     { name: "All", loaderId: 0 },
     { name: "Forge", loaderId: 1 },
     { name: "Fabric", loaderId: 4 },
     { name: "Quilt", loaderId: 5 },
     { name: "NeoForge", loaderId: 6 },
   ];
-  const sortOptions = [
-    "Relevancy",
-    "Popularity",
-    "Creation Date",
-    "Total Downloads",
-    "Latest update",
-    "A-Z",
+  const sortFields = [
+    {name: "Relevancy", sortFieldId: 0},
+    {name: "Popularity", sortFieldId: 2},
+    {name: "Creation Date", sortFieldId: 11},
+    {name: "Total Downloads", sortFieldId: 6},
+    {name: "Latest update", sortFieldId: 3},
+    {name: "A-Z", sortFieldId: 4},
   ];
 
   return (
@@ -66,10 +73,10 @@ const Home = () => {
             className="w-full"
           >
             <TabsList className="w-full grid grid-cols-5 h-auto bg-zinc-950">
-              {modLoaderIds.map((loader) => (
+              {modLoaders.map((loader) => (
                 <TabsTrigger
                   key={loader.loaderId}
-                  onClick={() => searchLoader(loader)}
+                  onClick={() => filter("modLoader", loader.loaderId)}
                   value={loader.name}
                   className={`py-2 data-[state=active]:bg-violet data-[state=active]:text-white cursor-pointer`}
                 >
@@ -87,13 +94,14 @@ const Home = () => {
             className="w-full"
           >
             <TabsList className="w-full grid grid-cols-6 h-auto bg-zinc-950 max-sm:grid-cols-3">
-              {sortOptions.map((option) => (
+              {sortFields.map((field) => (
                 <TabsTrigger
-                  key={option}
-                  value={option}
+                  key={field.sortFieldId}
+                  onClick={() => filter("sortField" , field.sortFieldId)}
+                  value={field.name}
                   className={`py-2 data-[state=active]:bg-violet data-[state=active]:text-white cursor-pointer`}
                 >
-                  {option}
+                  {field.name}
                 </TabsTrigger>
               ))}
             </TabsList>
