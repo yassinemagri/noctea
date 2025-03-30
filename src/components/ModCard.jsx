@@ -16,7 +16,6 @@ import DownloadDialog from "./DownloadDialog";
 import { useState } from "react";
 
 function ModCard({ mod, activeLoader }) {
-  AlertTitle('hnya akhi badrr')
   // console.log(mod.latestFiles[0].gameVersions)
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false)
   return (
@@ -91,7 +90,7 @@ function ModCard({ mod, activeLoader }) {
           </div>
         </div>
 
-        <DownloadDialog  modName={mod.name || "Collective"}/>
+        {/* <DownloadDialog  modName={mod.name || "Collective"}/> */}
       </CardContent>
     </Card>
   );
