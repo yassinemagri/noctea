@@ -6,9 +6,9 @@ const headers = {
 const baseURL = 'https://api.curseforge.com'
 const minecraftId = '432'
 // It gets all mods categories
-export const getAllCategories = async () => {
+export const getAllCategories = async (modLoaderId) => {
     try {
-        const allModsURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}`
+        const allModsURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}${modLoaderId && `&modLoaderType=${modLoaderId}`}`
         const response = await fetch(allModsURL, { method: "GET", headers: headers });
         if (!response.ok) {
             throw new Error("HTTP error! Status:", response.status);
