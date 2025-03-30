@@ -12,9 +12,11 @@ import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import { format } from "date-fns";
+import DownloadDialog from "./DownloadDialog";
 
 function ModCard({ mod, activeLoader }) {
   // console.log(mod.latestFiles[0].gameVersions)
+  const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false)
   return (
     <Card className="bg-zinc-900 border-none max-lg:mx-12 max-lg:w-auto">
       <CardContent className="p-4 flex gap-4 max-lg:flex-col max-lg:items-center">
@@ -86,6 +88,8 @@ function ModCard({ mod, activeLoader }) {
             </Badge>
           </div>
         </div>
+
+        <DownloadDialog  modName={mod.name || "Collective"}/>
       </CardContent>
     </Card>
   );
