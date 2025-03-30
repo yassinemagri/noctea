@@ -1,32 +1,26 @@
 import React, {useEffect, useState} from 'react'
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useSearchParams } from 'react-router-dom';
 import { JavaEdition } from './JavaEdition'
-import { getAllModsByClassId } from '../data/api'
+import { getAllCategories } from '../data/api'
 import ModCard from '@/components/ModCard';
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 export async function loader() {
-  const modLoaderIds = [
-    {name : "Forge", id : 1},
-    {name : "Fabric", id : 4 },
-    {name : "Quilt", id : 5 },
-    {name : "NeoForge", id : 6 },
-  ]
+  const data = await getAllCategories();
+  return data;
+}
+const Home = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  const mineCraftEndPoint = useLoaderData();
   const classIds = [
     {name : "Mods", id : 6},
     {name : "Modpacks", id : 4471 },
     {name : "Worlds", id : 17 },
     {name : "Ressource Packs", id : 12 },
   ]
-  const data = await getAllModsByClassId(6);
-  return data;
-}
-const Home = () => {
-  const mineCraftEndPoint = useLoaderData();
-
   // mineCraftEndPoint.data.map(data=> console.log(data))
- console.log(mineCraftEndPoint)
+//  console.log(mineCraftEndPoint)
   const [activeLoader, setActiveLoader] = useState("NEOFORGE");
   const [activeSort, setActiveSort] = useState("Popularity");
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,6 +39,14 @@ const Home = () => {
     "A-Z",
   ];
 
+  function searchLoader(modLoader){
+    event.preventDefault();
+    // The serialize function here would be responsible for
+    // creating an object of { key: value } pairs from the
+    // fields in the form that make up the query.
+    let params = serializeFormQuery(event.target);
+    setSearchParams(modLoader)
+  }
   return (
     <>
       <div className="container mx-auto mt-8 bg-zinc-900 rounded-lg p-4">
@@ -59,6 +61,7 @@ const Home = () => {
               {modLoaderIds.map((loader) => (
                 <TabsTrigger
                   key={loader.id}
+                  onClick={()=> searchLoader(loader.name)}
                   value={loader.name}
                   className={`py-2 data-[state=active]:bg-violet data-[state=active]:text-white`}
                 >

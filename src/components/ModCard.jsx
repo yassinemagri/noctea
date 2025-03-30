@@ -5,7 +5,7 @@ import { Badge } from "./ui/badge"
 import { format } from "date-fns";
 
 function ModCard({ mod }) {
-  console.log(mod)
+  // console.log(mod)
   return (
     <Card className="bg-zinc-900 border-none">
       <CardContent className="p-4 flex gap-4">
