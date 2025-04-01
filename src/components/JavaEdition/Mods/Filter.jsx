@@ -28,6 +28,8 @@ const Filter = ({
     setActiveLoader(value);
     const modLoaderFind = sorts.flatMap((loader) => loader.modLoaderIds);
     const loader = modLoaderFind.find((l) => l.name === value);
+    // const sortOption = sorts.flatMap((loader) => loader.sortOptions);
+    // const options = sortOption.find((option) => option === value);
     if (loader) {
       searchLoader(loader);
     }
@@ -57,6 +59,7 @@ const Filter = ({
 
   const handleFilterChange = (name) => (value) => {
     setActiveLoader(value);
+    handleLoaderChange(value)
     setFormSelect((prevselect) => {
       return { ...prevselect, [name]: value };
     });
@@ -67,7 +70,9 @@ const Filter = ({
     setFormFilter((prevfilter) => {
       return [...prevfilter, formSelect];
     });
+    
   }
+  console.log(formFilter)
   return (
     <form className="mb-4 flex" onSubmit={handleFilter}>
       <Select
@@ -98,7 +103,7 @@ const Filter = ({
         data-slot="select"
       >
         <SelectTrigger className="w-full bg-zinc-950 border-none text-white cursor-pointer">
-          <SelectValue placeholder="Select Mod Loader" />
+          <SelectValue placeholder="Select Sort" />
         </SelectTrigger>
         <SelectContent className="bg-zinc-900 border-zinc-800">
           {sorts.flatMap((loader) =>

@@ -43,7 +43,7 @@ export default function Mods() {
         <h1 className="my-4">Latest Mods : </h1>
         <div>
           {data.data.map((mod) => (
-            <ModCard key={mod.id} mod={mod} activeLoader={activeLoader} />
+            <ModCard key={mod.id} mod={mod} activeLoader={activeLoader}/>
           ))}
         </div>
       </div>

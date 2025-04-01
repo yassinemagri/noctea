@@ -2,10 +2,6 @@ import {
   Calendar,
   Clock,
   Download,
-  ExternalLink,
-  Star,
-  BarChart,
-  Database,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
