@@ -53,31 +53,27 @@ const Filter = ({
     },
   ];
   const [formFilter, setFormFilter] = useState([]);
-  const [formSelect, setFormSelect] = useState('');
+  const [formSelect, setFormSelect] = useState("");
 
-function handleFilterChange(value) {
-    // const { value } = e.target;
+  const handleFilterChange = (name) => (value) => {
     setActiveLoader(value);
-    setFormSelect((prevfilter) => {
-      return { ...prevfilter, key: value };
+    setFormSelect((prevselect) => {
+      return { ...prevselect, [name]: value };
     });
   }
 
-function handleFilter(e){
+  function handleFilter(e) {
     e.preventDefault();
-    setFormFilter(prevselect=> {
-      return [...prevselect, formSelect];
-    })
+    setFormFilter((prevfilter) => {
+      return [...prevfilter, formSelect];
+    });
   }
-console.log(formFilter)
   return (
     <form className="mb-4 flex" onSubmit={handleFilter}>
       <Select
-        onChange={handleFilterChange}
         value={activeLoader}
-        onValueChange={handleFilterChange}
+        onValueChange={handleFilterChange("modLoader")}
         data-slot="select"
-        name="us"
       >
         <SelectTrigger className="w-full bg-zinc-950 border-none text-white cursor-pointer">
           <SelectValue placeholder="Select Mod Loader" />
@@ -97,9 +93,8 @@ console.log(formFilter)
         </SelectContent>
       </Select>
       <Select
-        onChange={handleFilterChange}
         value={activeSort}
-        onValueChange={setActiveSort}
+        onValueChange={handleFilterChange("sortOptions")}
         data-slot="select"
       >
         <SelectTrigger className="w-full bg-zinc-950 border-none text-white cursor-pointer">
@@ -121,9 +116,8 @@ console.log(formFilter)
       </Select>
 
       <Select
-      onChange={handleFilterChange}
         value={searchQuery}
-        onValueChange={setSearchQuery}
+        onValueChange={handleFilterChange("gameVersion")}
         data-slot="select"
       >
         <SelectTrigger className="w-full bg-zinc-950 border-none text-white cursor-pointer">
@@ -143,10 +137,12 @@ console.log(formFilter)
           )}
         </SelectContent>
       </Select>
-      <Button type="submit" className="bg-violet text-[#eeedff] hover:bg-violet h-8 px-3 py-1 cursor-pointer">
+      <Button
+        type="submit"
+        className="bg-violet text-[#eeedff] hover:bg-violet h-8 px-3 py-1 cursor-pointer"
+      >
         Fitler
       </Button>
-      
     </form>
   );
 };
