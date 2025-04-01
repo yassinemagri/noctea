@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { getAllCategories, getModByClassId } from "@/data/api";
 import ModCard from "@/components/JavaEdition/Mods/ModCard";
-import Filter from "./Filter";
+import Filter from "../components/JavaEdition/Mods/Filter";
 import { ListFilter } from "lucide-react";
 export async function loader({ request }) {
   const loaderId = new URL(request.url).searchParams.get("loaderId");

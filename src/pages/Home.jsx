@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Mods from "@/components/JavaEdition/Mods/Mods";
 import { getAllCategories, getModByClassId } from "@/data/api";
 export async function loader({ request }) {
   const loaderId = new URL(request.url).searchParams.get("loaderId");
@@ -18,7 +17,7 @@ const Home = () => {
         <div className="">bla mybqa ygoliya bndam rani gehma khdam</div>
       </div>
       <div className="m-4">
-      <Mods />
+        {/*  */}
       </div>
       <div className="m-4">
         <h1 className="my-4">left List : </h1>
