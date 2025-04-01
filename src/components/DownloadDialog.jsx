@@ -1,5 +1,6 @@
 import { ExternalLink, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
 import {
   Card,
   CardContent,
@@ -16,10 +17,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
 
 export default function DownloadDialog({ mod,setIsDownloadDialogOpen }) {
-  console.log(mod);
+  const [modDetails, setModDetails] = useState(null);
 
+  useEffect(() => {
+    if (mod?.latestFiles?.length > 0) {
+      setModDetails(mod.latestFiles[0]); 
+    }
+  }, [mod]);
+  
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-in fade-in duration-200">
       <Card
@@ -45,8 +53,9 @@ export default function DownloadDialog({ mod,setIsDownloadDialogOpen }) {
                 <SelectValue placeholder="All Game Versions" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1.21.5" className={`text-white hover:bg-zinc-800 focus:bg-violet data-[selected]:bg-violet data-[selected]:text-white cursor-pointer`}
-                >1.21.5</SelectItem>
+       
+  <SelectItem value="1.21.5" className={`text-white hover:bg-zinc-800 focus:bg-violet data-[selected]:bg-violet data-[selected]:text-white cursor-pointer`}
+                >version</SelectItem>
               </SelectContent>
             </Select>
 
@@ -77,16 +86,19 @@ export default function DownloadDialog({ mod,setIsDownloadDialogOpen }) {
           <div className="bg-zinc-800 p-3 rounded-md">
             <div className="flex justify-between items-center">
               <div className="text-sm">
-                [Fabric/Forge/Neo] 1.21.5-8.1 | C...
+                {modDetails && modDetails.fileName}
               </div>
               <div className="text-xs text-zinc-400">Latest release</div>
             </div>
             <div className="flex justify-between items-center mt-2">
               <div className="flex items-center gap-2">
-                <span className="text-sm">1.21.5</span>
-                <span className="text-sm text-zinc-400">Forge + 3</span>
+              {modDetails && modDetails.gameVersions.map(vers=> <span key={vers} className="text-sm">{vers}</span>)}
+                
+                <span className="text-sm text-zinc-400">Forge</span>
               </div>
-              <div className="text-xs text-zinc-400">Mar 30, 2025</div>
+              <div className="text-xs text-zinc-400">
+              {modDetails && format(new Date(modDetails?.fileDate), "MMM dd, yyyy")}
+              </div>
             </div>
           </div>
         </CardContent>

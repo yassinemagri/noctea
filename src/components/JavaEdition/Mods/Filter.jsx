@@ -17,24 +17,8 @@ const Filter = ({
   searchQuery,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  function searchLoader(loader) {
-    const filterKeyValues = Object.entries(loader);
-    setSearchParams(() => {
-      return filterKeyValues;
-    });
-  }
-  const handleLoaderChange = (value) => {
-    setActiveLoader(value);
-    const modLoaderFind = sorts.flatMap((loader) => loader.modLoaderIds);
-    const loader = modLoaderFind.find((l) => l.name === value);
-    // const sortOption = sorts.flatMap((loader) => loader.sortOptions);
-    // const options = sortOption.find((option) => option === value);
-    if (loader) {
-      searchLoader(loader);
-    }
-  };
-
+  const [formFilter, setFormFilter] = useState([]);
+  const [formSelect, setFormSelect] = useState("");
   const sorts = [
     {
       modLoaderIds: [
@@ -54,25 +38,38 @@ const Filter = ({
       ],
     },
   ];
-  const [formFilter, setFormFilter] = useState([]);
-  const [formSelect, setFormSelect] = useState("");
+
+  function searchLoader(loader) {
+    const filterKeyValues = Object.entries(loader);
+    setSearchParams(() => {
+      return filterKeyValues;
+    });
+  }
+  const handleLoaderChange = (value) => {
+    setActiveLoader(value);
+    setActiveSort(value);
+    const modLoaderFind = sorts.flatMap((loader) => loader.modLoaderIds);
+    const loader = modLoaderFind.find((l) => l.name === value);
+
+    if (loader) {
+      searchLoader(loader);
+    }
+  };
 
   const handleFilterChange = (name) => (value) => {
     setActiveLoader(value);
-    handleLoaderChange(value)
+    handleLoaderChange(value);
     setFormSelect((prevselect) => {
       return { ...prevselect, [name]: value };
     });
-  }
+  };
 
   function handleFilter(e) {
     e.preventDefault();
     setFormFilter((prevfilter) => {
       return [...prevfilter, formSelect];
     });
-    
   }
-  console.log(formFilter)
   return (
     <form className="mb-4 flex" onSubmit={handleFilter}>
       <Select
@@ -146,7 +143,7 @@ const Filter = ({
         type="submit"
         className="bg-violet text-[#eeedff] hover:bg-violet h-8 px-3 py-1 cursor-pointer"
       >
-        Fitler
+        Fitlers
       </Button>
     </form>
   );

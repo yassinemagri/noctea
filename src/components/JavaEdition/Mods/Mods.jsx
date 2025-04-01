@@ -3,6 +3,7 @@ import { useLoaderData, useSearchParams } from "react-router-dom";
 import { getAllCategories, getModByClassId } from "@/data/api";
 import ModCard from "@/components/JavaEdition/Mods/ModCard";
 import Filter from "./Filter";
+import { ListFilter } from "lucide-react";
 export async function loader({ request }) {
   const loaderId = new URL(request.url).searchParams.get("loaderId");
   console.log(loaderId);
@@ -21,8 +22,7 @@ export default function Mods() {
     { name: "Worlds", classId: 17 },
     { name: "Ressource Packs", classId: 12 },
   ];
-  // mineCraftEndPoint.data.map(data=> console.log(data))
-  //  console.log(mineCraftEndPoint)
+
   const [activeLoader, setActiveLoader] = useState("All");
   const [activeSort, setActiveSort] = useState("Popularity");
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,6 +31,7 @@ export default function Mods() {
     <>
       <div className="container mx-auto">
         {/* mods Filter */}
+        <div className="flex"><ListFilter size={20}/> <h1>Filter Mods:</h1> </div>
         <Filter
           setActiveSort={setActiveSort}
           activeSort={activeSort}
