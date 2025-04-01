@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllCategories, getModByClassId } from "@/data/api";
+import { Button } from "@/components/ui/button";
+import SectionCard from "@/components/SectionCard";
+import { Card, CardContent } from "@/components/ui/card";
 export async function loader({ request }) {
   const loaderId = new URL(request.url).searchParams.get("loaderId");
   if (loaderId) {
@@ -18,6 +21,10 @@ const Home = () => {
       </div>
       <div className="m-4">
         {/*  */}
+        <div>
+          {/* Header */}
+          <SectionCard />
+        </div>
       </div>
       <div className="m-4">
         <h1 className="my-4">left List : </h1>
