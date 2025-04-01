@@ -16,12 +16,7 @@ export async function loader({ request }) {
 }
 export default function Mods() {
   const data = useLoaderData();
-  const classIds = [
-    { name: "Mods", classId: 6 },
-    { name: "Modpacks", classId: 4471 },
-    { name: "Worlds", classId: 17 },
-    { name: "Ressource Packs", classId: 12 },
-  ];
+
 
   const [activeLoader, setActiveLoader] = useState("All");
   const [activeSort, setActiveSort] = useState("Popularity");
