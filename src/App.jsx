@@ -1,8 +1,8 @@
 import React from 'react'
-import { RouterProvider,createBrowserRouter,createRoutesFromElements,Route } from 'react-router-dom'
+import {RouterProvider,createBrowserRouter,createRoutesFromElements,Route } from 'react-router-dom'
 import Layout from "./layouts/Layout"
 import Home from "./pages/Home"
-import Mods from "./components/JavaEdition/Mods"
+import Mods from "@/components/JavaEdition/Mods/Mods"
 import Worlds from "./components/JavaEdition/Worlds"
 import ResourcePacks from "./components/JavaEdition/ResourcePacks"
 import { loader as gamesLoader } from './pages/Home'

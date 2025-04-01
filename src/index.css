@@ -106,8 +106,8 @@
   body {
     @apply bg-background text-primary;
     --sb-track-color: #000000;
-    --sb-thumb-color: #ff5e41;
-    --sb-size: 4px;
+    --sb-thumb-color: var(--violet);
+    --sb-size: 6px;
   }
   body::-webkit-scrollbar {
     width: var(--sb-size);
