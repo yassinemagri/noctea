@@ -34,7 +34,7 @@ const Home = () => {
     return filteredData.length >= 6 ? <SectionCard key={ids.classId} type="Popular" modCategory={ids.name} filteredData={filteredData} /> : ''
   });
   return (
-    <div className="grid grid-cols-[1fr_3fr_1fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr_auto] max-md:gap-y-[33px] ">
+    <div className="grid grid-cols-[1fr_4fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px] ">
       <div className="m-4">
         <h1 className="">right list </h1>
         <div className="">bla mybqa ygoliya bndam rani gehma khdam</div>
@@ -44,12 +44,7 @@ const Home = () => {
         <div>{latestData}</div>
         <div>{popularData}</div>
       </div>
-      <div className="m-4">
-        <h1 className="my-4">left List : </h1>
-        <div className="space-y-4">
-          `Ila shfti gehma kayn resp 3awd kark rani khdam lkari 3lih`
-        </div>
-      </div>
+     
     </div>
   );
 };
