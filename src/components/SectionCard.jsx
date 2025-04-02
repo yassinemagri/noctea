@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import ModsCard from "./modsCard"
+import ModsCard from "./ModsCard"
 
 export default function PopularAddons({type, modCategory, filteredData}) {
 
