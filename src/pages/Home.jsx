@@ -25,13 +25,13 @@ const Home = () => {
   const latestData = classIds.map((ids) => {
     const filteredData = data[0]
       .filter((value) => value.classId === ids.classId).slice(0,6)
-    return <SectionCard key={ids.classId} type="Latest" modCategory={ids.name} filteredData={filteredData} />
+    return filteredData.length >= 6 ? <SectionCard key={ids.classId} type="Latest" modCategory={ids.name} filteredData={filteredData} /> : ''
   });
   const popularData = classIds.map((ids) => {
     const filteredData = data[1]
       .filter((value) => value.classId === ids.classId).slice(0,6)
     console.log(filteredData)
-    return <SectionCard key={ids.classId} type="Popular" modCategory={ids.name} filteredData={filteredData} />
+    return filteredData.length >= 6 ? <SectionCard key={ids.classId} type="Popular" modCategory={ids.name} filteredData={filteredData} /> : ''
   });
   return (
     <div className="grid grid-cols-[1fr_3fr_1fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr_auto] max-md:gap-y-[33px] ">
