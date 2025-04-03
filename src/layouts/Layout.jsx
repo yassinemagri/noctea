@@ -4,7 +4,7 @@ import Header from "../components/Header/Header";
 
 const Layout = () => {
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-black px-8">
       <Header />
       <Outlet />
     </main>

@@ -8,15 +8,7 @@ const Header = () => {
 
   return (
     <div className={`relative h-auto w-full mb-4`}>
-      <div className={`absolute h-full w-full bg-[url(https://i.ibb.co/r2RRk6TY/bg-tes.png)] bg-center bg-no-repeat bg-cover opacity-60`}></div>
       <div className="relative z-10 flex h-full flex-col justify-between p-4">
-        {/* navbar-brand */}
-        <div className="flex h-full items-center justify-center mb-8">
-          <h1 className="text-6xl md:text-7xl font-play font-bold text-white shadow-lg">
-            Noctea
-          </h1>
-        </div>
-
         {/* nav bar */}
         <div className="bg-black/70 p-4 rounded-lg shadow-lg">
           <div className="mx-auto flex  justify-between items-center">
