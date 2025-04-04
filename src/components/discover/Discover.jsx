@@ -3,6 +3,7 @@ import { Card, CardContent } from "../ui/card";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Download, Gamepad, Monitor, Sword, Users, ExternalLink } from 'lucide-react';
+import {urlFn } from "@/data/helpers";
 
 const Discover = () => {
 const games = [
@@ -92,16 +93,17 @@ const games = [
 
                 {/* Download Page */}
                 <div className="flex gap-3 pt-2">
-                  <Link to={game.url} className="w-full">
+                  <div className="w-full">
                     <Button
                       variant="outline"
                       className="w-full bg-emerald-500/20 border-emerald-500/50 text-white hover:bg-emerald-500/30 hover:text-white transition-all duration-300 group/btn"
                       target="_blank"
+                      onClick={()=> urlFn(game.url)}
                     >
                       <Download className="h-4 w-4 mr-2 transition-transform group-hover/btn:translate-y-0.5" />
                       Download
                     </Button>
-                  </Link>
+                  </div>
                   <Link to={game.url} className="shrink-0">
                     <Button
                       variant="outline"

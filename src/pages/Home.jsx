@@ -3,6 +3,7 @@ import { getAllCategories } from "@/data/api";
 import SectionCard from "@/components/SectionCard";
 import { useLoaderData } from "react-router-dom";
 import Discover from "@/components/discover/Discover";
+import PlayerModList from "@/components/PlayerModList";
 export async function loader() {
   try {
     const modsSortedByLatest = await getAllCategories(3);
@@ -58,6 +59,7 @@ const Home = () => {
       <Discover />
       <div className="grid grid-cols-[4fr_1fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px] ">
         <div className="m-4">
+          <PlayerModList />
           {/*  */}
           <div>{latestData}</div>
           <div>{popularData}</div>

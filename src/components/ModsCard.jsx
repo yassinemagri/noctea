@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Download, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {urlFn,formatNumber } from "@/data/helpers";
 import {
   Tooltip,
   TooltipContent,
@@ -13,32 +14,11 @@ import {
 const ModsCard = ({ data, onDownload }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  function formatNumber(value) {
-    var valueToNumber = Number(value);
-    if (isNaN(valueToNumber)) return "Invalid number";
-    if (valueToNumber >= 1_000_000_000_000) {
-      return (valueToNumber / 1_000_000_000_000).toFixed(1) + "T";
-    } else if (valueToNumber >= 1_000_000_000) {
-      return (valueToNumber / 1_000_000_000).toFixed(1) + "B";
-    } else if (valueToNumber >= 1_000_000) {
-      return (valueToNumber / 1_000_000).toFixed(1) + "M";
-    } else if (valueToNumber >= 1_000) {
-      return (valueToNumber / 1_000).toFixed(1) + "K";
-    }
-    return valueToNumber.toString();
-  }
-
-  const handleCardClick = () => {
-    window.open(data.links?.websiteUrl || "#", "_blank");
-  };
-  const filterModLeader = data.latestFiles[0].gameVersions.filter(
-    (client) => !/\d/.test(client) && client !== "Server" && client !== "Client"
-  );
-  const filterGameVersion = data.latestFiles[0].gameVersions.filter((client) =>
-    /\d/.test(client)
-  );
+  const filterModLeader = data.latestFiles[0].gameVersions.filter((client) => !/\d/.test(client) && client !== "Server" && client !== "Client");
+  const filterGameVersion = data.latestFiles[0].gameVersions.filter((client) => /\d/.test(client));
   // console.log(filterModLeader.length > 0 && filterModLeader)
   console.log(filterGameVersion.length > 0 && filterGameVersion)
+  // console.log(data.latestFiles[0].gameVersions)
   return (
     <Card
       key={data.id}
@@ -56,7 +36,6 @@ const ModsCard = ({ data, onDownload }) => {
             backgroundPosition: "center",
             transform: isHovered ? "scale(1.05)" : "scale(1)",
           }}
-          onClick={handleCardClick}
         >
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-900/90 via-zinc-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -87,10 +66,7 @@ const ModsCard = ({ data, onDownload }) => {
                       size="icon"
                       variant="secondary"
                       className="h-8 w-8 bg-zinc-800/80 hover:bg-zinc-700 transition-colors"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        window.open(data.links?.websiteUrl || "#", "_blank");
-                      }}
+                      onClick={() => urlFn(data.links?.websiteUrl)}
                     >
                       <ExternalLink size={14} />
                     </Button>
