@@ -42,7 +42,6 @@ const Home = () => {
     const filteredData = data[1]
       .filter((value) => value.classId === ids.classId)
       .slice(0, 6);
-    console.log(filteredData);
     return filteredData.length >= 6 ? (
       <SectionCard
         key={ids.classId}
