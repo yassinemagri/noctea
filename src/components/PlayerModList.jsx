@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Download, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import {urlFn,formatNumber } from "@/data/helpers";
+import { urlFn, formatNumber } from "@/data/helpers";
 import { Button } from "./ui/button";
 const PlayerModList = () => {
   const scrollContainerRef = useRef(null);
@@ -74,16 +74,6 @@ const PlayerModList = () => {
       });
     }
   };
-
-  function formatNumber(value) {
-    if (value >= 1_000_000) {
-      return (value / 1_000_000).toFixed(1) + "M";
-    } else if (value >= 1_000) {
-      return (value / 1_000).toFixed(1) + "K";
-    }
-    return value.toString();
-  }
-
   useEffect(() => {
     // Set the first user as selected by default
     if (users.length > 0 && !selectedUser) {
@@ -170,25 +160,15 @@ const PlayerModList = () => {
               ></div>
 
               {/* Inner hexagon with black background */}
-              <div className="absolute inset-[2px] bg-black rounded-lg rotate-45 transform-gpu"></div>
+              <div className="absolute inset-[2px] bg-black rounded-4xl rotate-45 transform-gpu"></div>
 
               {/* User image */}
-              <div 
-                className="absolute inset-[4px] overflow-hidden rounded-lg rotate-45 transform-gpu"
-              >
-                <div 
-                  className=""
-                  style={{
-                  backgroundImage: `url(${selectedUser.imageUrl})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  transform: isHovered ? "scale(1.05)" : "scale(1)",
-                }}></div>
-                {/* <img
+              <div className="absolute inset-[4px] overflow-hidden rounded-lg rotate-45 transform-gpu">
+                <img
                   src={selectedUser.imageUrl || "/placeholder.svg"}
                   alt={selectedUser.username}
-                  className="w-[120%] h-[120%] object-cover -rotate-45 transform-gpu origin-center"
-                /> */}
+                  className="absolute left-1/2 top-1/2 w-[120%] h-[120%] object-cover -translate-x-1/2 -translate-y-1/2 -rotate-45 transform-gpu origin-center"
+                />
               </div>
             </div>
 
@@ -215,7 +195,7 @@ const PlayerModList = () => {
 
               <div className="flex items-center gap-4 mt-2 text-sm text-gray-300">
                 <div className="flex items-center gap-1">
-                  <Button onClick={()=> urlFn(selectedUser.downloadUrl)}>
+                  <Button onClick={() => urlFn(selectedUser.downloadUrl)}>
                     <Download size={14} />
                     Download
                   </Button>

@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import DownloadDialog from "@/components/DownloadDialog";
 import {formatNumber } from "@/data/helpers";
+import { Link } from "react-router-dom";
 
 function ModCard({ mod, activeLoader }) {
   // console.log(mod.latestFiles[0].gameVersions)
@@ -46,7 +47,9 @@ function ModCard({ mod, activeLoader }) {
                 <Download size={16} className="mr-1 " />
                 Download
               </Button>
-
+              <Link to={`/mods/${mod.id}`}>
+                Detail
+              </Link>
             </div>
           </div>
 

@@ -2,22 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { getAllCategories, getModByClassId } from "@/data/api";
 import ModCard from "@/components/JavaEdition/Mods/ModCard";
-import Filter from "../components/JavaEdition/Mods/Filter";
+import Filter from "@/components/JavaEdition/Mods/Filter";
 import { ListFilter } from "lucide-react";
-export async function loader({ request }) {
-  const loaderId = new URL(request.url).searchParams.get("loaderId");
-  console.log(loaderId);
-  if (loaderId) {
-    const data = await getAllCategories(loaderId);
-    return data;
-  }
-  const data = await getAllCategories();
-  return data;
+export async function loader(){
+  const getMods = await getModByClassId(6)
+  return getMods
 }
 export default function Mods() {
   const data = useLoaderData();
-
-
   const [activeLoader, setActiveLoader] = useState("All");
   const [activeSort, setActiveSort] = useState("Popularity");
   const [searchQuery, setSearchQuery] = useState("");
