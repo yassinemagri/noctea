@@ -15,7 +15,7 @@ export function formatNumber(value) {
 }
 // url open new tabe
 export function urlFn(url) {
-  window.open(url || "#", "_blank");
+  window.open(url, "_blank");
 }
 export function toggleFn(fn){
   fn(prevfn => !prevfn)

@@ -1,113 +1,257 @@
-import { ExternalLink, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { format } from "date-fns";
+import { ExternalLink, X, QrCode, Download, Check, Info } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { format } from "date-fns"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Badge } from "@/components/ui/badge"
+import { useEffect, useState } from "react"
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { QrCode } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { useEffect, useState } from "react";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Progress } from "@/components/ui/progress"
 
-export default function DownloadDialog({ mod,setIsDownloadDialogOpen }) {
-  const [modDetails, setModDetails] = useState(null);
+
+export default function DownloadDialog({ mod, open, onOpenChange }) {
+  const [modDetails, setModDetails] = useState(null)
+  const [selectedVersion, setSelectedVersion] = useState("")
+  const [selectedLoader, setSelectedLoader] = useState("")
+  const [isDownloading, setIsDownloading] = useState(false)
+  const [downloadProgress, setDownloadProgress] = useState(0)
+
+  // Reset download state when dialog closes
+  useEffect(() => {
+    if (!open) {
+      setIsDownloading(false)
+      setDownloadProgress(0)
+    }
+  }, [open])
 
   useEffect(() => {
     if (mod?.latestFiles?.length > 0) {
-      setModDetails(mod.latestFiles[0]); 
+      setModDetails(mod.latestFiles[0])
+
+      // Set default selections if available
+      if (mod.latestFiles[0].gameVersions?.length > 0) {
+        setSelectedVersion(mod.latestFiles[0].gameVersions[0])
+      }
+      setSelectedLoader("forge") // Default to forge
     }
-  }, [mod]);
-  
+  }, [mod])
+
+  const handleDownload = () => {
+    setIsDownloading(true)
+
+    // Simulate download progress
+    let progress = 0
+    const interval = setInterval(() => {
+      progress += Math.random() * 10
+      if (progress >= 100) {
+        progress = 100
+        clearInterval(interval)
+        setTimeout(() => {
+          setIsDownloading(false)
+          // Here you would actually trigger the download
+        }, 500)
+      }
+      setDownloadProgress(progress)
+    }, 200)
+  }
+
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 animate-in fade-in duration-200">
-      <Card
-        className="w-full max-w-md bg-zinc-900 border-none text-white"
-        data-slot="card"
-      >
-        <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-xl font-medium">Download </CardTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8 rounded-full hover:bg-zinc-800 cursor-pointer"
-            onClick={()=> setIsDownloadDialogOpen(false)}
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          <div className="flex justify-center items-center">
-            <Select>
-              <SelectTrigger className="w-full bg-zinc-800 border-none cursor-pointer">
-                <SelectValue placeholder="All Game Versions" />
-              </SelectTrigger>
-              <SelectContent>
-       
-  <SelectItem value="1.21.5" className={`text-white hover:bg-zinc-800 focus:bg-violet data-[selected]:bg-violet data-[selected]:text-white cursor-pointer`}
-                >version</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select>
-              <SelectTrigger className="w-full bg-zinc-800 border-none mx-2 cursor-pointer">
-                <SelectValue placeholder="All Mod Loaders" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="fabric" className={`text-white hover:bg-zinc-800 focus:bg-violet data-[selected]:bg-violet data-[selected]:text-white cursor-pointer`}
-                >Fabric</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 bg-transparent border-gray-700 hover:bg-gray-800 cursor-pointer"
-            >
-              <QrCode size={16} />
-            </Button>
-            <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 bg-transparent border-gray-700 hover:bg-gray-800 ml-2 cursor-pointer"
-              >
-                <ExternalLink size={16} />
-              </Button>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="bg-zinc-900 border-zinc-800 text-white p-0 sm:max-w-md">
+        <DialogHeader className="px-6 pt-6 pb-2">
+          <div className="flex items-center justify-between">
+            <DialogTitle className="text-xl font-medium flex items-center gap-2">
+              Download
+              {mod?.name && <span className="text-violet-400 font-normal text-sm">({mod.name})</span>}
+            </DialogTitle>
           </div>
-          <div className="bg-zinc-800 p-3 rounded-md">
+          <DialogDescription className="text-zinc-400 text-xs">
+            Select version and mod loader to download
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="px-6 py-3">
+          <div className="flex flex-col sm:flex-row gap-2 items-center mb-4">
+            <Select value={selectedVersion} onValueChange={setSelectedVersion}>
+              <SelectTrigger className="w-full bg-zinc-800 border-zinc-700 focus:ring-violet-500">
+                <SelectValue placeholder="Select Game Version" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-800 border-zinc-700">
+                {modDetails?.gameVersions?.map((version) => (
+                  <SelectItem
+                    key={version}
+                    value={version}
+                    className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
+                  >
+                    {version}
+                  </SelectItem>
+                )) || (
+                  <SelectItem
+                    value="1.21.5"
+                    className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
+                  >
+                    1.21.5
+                  </SelectItem>
+                )}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedLoader} onValueChange={setSelectedLoader}>
+              <SelectTrigger className="w-full bg-zinc-800 border-zinc-700 focus:ring-violet-500">
+                <SelectValue placeholder="Select Mod Loader" />
+              </SelectTrigger>
+              <SelectContent className="bg-zinc-800 border-zinc-700">
+                <SelectItem
+                  value="forge"
+                  className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
+                >
+                  Forge
+                </SelectItem>
+                <SelectItem
+                  value="fabric"
+                  className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
+                >
+                  Fabric
+                </SelectItem>
+                <SelectItem
+                  value="quilt"
+                  className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
+                >
+                  Quilt
+                </SelectItem>
+              </SelectContent>
+            </Select>
+
+            <div className="flex gap-1">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-10 w-10 bg-transparent border-zinc-700 hover:bg-zinc-800"
+                    >
+                      <QrCode size={16} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="bg-zinc-800 text-white border-zinc-700">
+                    <p>Show QR Code</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className="h-10 w-10 bg-transparent border-zinc-700 hover:bg-zinc-800"
+                    >
+                      <ExternalLink size={16} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" className="bg-zinc-800 text-white border-zinc-700">
+                    <p>Open in browser</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          </div>
+
+          <div className="bg-zinc-800 p-4 rounded-md border border-zinc-700 transition-all hover:border-zinc-600">
             <div className="flex justify-between items-center">
-              <div className="text-sm">
-                {modDetails && modDetails.fileName}
+              <div className="text-sm font-medium truncate max-w-[70%]">
+                {modDetails?.fileName || "mod-file-name.jar"}
               </div>
-              <div className="text-xs text-zinc-400">Latest release</div>
+              <Badge variant="outline" className="bg-violet-500/20 text-violet-300 border-violet-500/30">
+                Latest
+              </Badge>
             </div>
-            <div className="flex justify-between items-center mt-2">
-              <div className="flex items-center gap-2">
-              {modDetails && modDetails.gameVersions.map(vers=> <span key={vers} className="text-sm">{vers}</span>)}
-                
-                <span className="text-sm text-zinc-400">Forge</span>
+
+            <div className="flex justify-between items-center mt-3">
+              <div className="flex items-center gap-2 flex-wrap">
+                {modDetails?.gameVersions?.map((vers) => (
+                  <Badge key={vers} variant="secondary" className="bg-zinc-700 text-zinc-300">
+                    {vers}
+                  </Badge>
+                ))}
+
+                <Badge variant="outline" className="bg-transparent border-zinc-600 text-zinc-400">
+                  {selectedLoader || "Forge"}
+                </Badge>
               </div>
+
               <div className="text-xs text-zinc-400">
-              {modDetails && format(new Date(modDetails?.fileDate), "MMM dd, yyyy")}
+                {modDetails?.fileDate
+                  ? format(new Date(modDetails.fileDate), "MMM dd, yyyy")
+                  : format(new Date(), "MMM dd, yyyy")}
               </div>
             </div>
+
+            {(modDetails?.downloadCount || modDetails?.fileSize) && (
+              <div className="flex items-center gap-4 mt-3 text-xs text-zinc-400">
+                {modDetails.downloadCount && (
+                  <div className="flex items-center gap-1">
+                    <Download size={12} />
+                    {new Intl.NumberFormat().format(modDetails.downloadCount)} downloads
+                  </div>
+                )}
+                {modDetails.fileSize && <div>{modDetails.fileSize}</div>}
+              </div>
+            )}
           </div>
-        </CardContent>
-        <CardFooter className="flex justify-end pt-2">
-          <Button className="bg-violet/50 hover:bg-violet text-white border-none cursor-pointer">
-            Download File
+
+          {isDownloading && (
+            <div className="mt-4">
+              <div className="flex justify-between items-center mb-1 text-xs">
+                <span>Downloading...</span>
+                <span>{Math.round(downloadProgress)}%</span>
+              </div>
+              <Progress value={downloadProgress} className="h-2 bg-zinc-700">
+                <div
+                  className="h-full bg-gradient-to-r from-violet-500 to-violet-400 rounded-full transition-all"
+                  style={{ width: `${downloadProgress}%` }}
+                />
+              </Progress>
+            </div>
+          )}
+        </div>
+
+        <DialogFooter className="px-6 py-4 bg-zinc-950/50 border-t border-zinc-800 flex justify-between sm:justify-between">
+          <div className="flex items-center text-xs text-zinc-400">
+            <Info size={12} className="mr-1" />
+            Always backup your world before installing mods
+          </div>
+          <Button
+            className={`bg-violet-600 hover:bg-violet-500 text-white border-none ${isDownloading ? "opacity-50 pointer-events-none" : ""}`}
+            onClick={handleDownload}
+            disabled={isDownloading}
+          >
+            {isDownloading ? (
+              <>Downloading...</>
+            ) : downloadProgress === 100 ? (
+              <>
+                <Check className="mr-1 h-4 w-4" /> Downloaded
+              </>
+            ) : (
+              <>
+                <Download className="mr-1 h-4 w-4" /> Download File
+              </>
+            )}
           </Button>
-        </CardFooter>
-      </Card>
-    </div>
-  );
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
 }
+
+

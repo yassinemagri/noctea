@@ -77,7 +77,7 @@ function ModCard({ mod, activeLoader }) {
             </Badge>
           </div>
         </div>
-        {isDownloadDialogOpen && <DownloadDialog  mod={mod || "Collective"} setIsDownloadDialogOpen={setIsDownloadDialogOpen}/>}
+        {isDownloadDialogOpen && <DownloadDialog  mod={mod || "Collective"} open={isDownloadDialogOpen} onOpenChange={setIsDownloadDialogOpen}/>}
       </CardContent>
     </Card>
   );

@@ -13,12 +13,9 @@ import {
 
 const ModsCard = ({ data, onDownload }) => {
   const [isHovered, setIsHovered] = useState(false);
-
   const filterModLeader = data.latestFiles[0].gameVersions.filter((client) => !/\d/.test(client) && client !== "Server" && client !== "Client");
   const filterGameVersion = data.latestFiles[0].gameVersions.filter((client) => /\d/.test(client));
-  // console.log(filterModLeader.length > 0 && filterModLeader)
-  console.log(filterGameVersion.length > 0 && filterGameVersion)
-  // console.log(data.latestFiles[0].gameVersions)
+
   return (
     <Card
       key={data.id}

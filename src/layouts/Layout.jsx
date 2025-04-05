@@ -5,8 +5,9 @@ import Footer from "../components/footer/Footer";
 
 const Layout = () => {
   return (
-    <main className="min-h-screen px-12 min-xl:mx-[20em]">
+    <main className="min-h-screen min-xl:px-20">
       <Header />
+      
       <Outlet />
       <Footer />
     </main>

@@ -7,6 +7,7 @@
 
 :root {
   --violet: oklch(0.57 0.2263 262.12);
+  --deep-noctea: oklch(0.19 0.03 268.5);
   --skyblue: oklch(0.65 0.1864 262.24);
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
@@ -45,6 +46,7 @@
   --color-violet: var(--violet);
   --color-skyblue: var(--skyblue);
   /* Noctéa colors */
+  --color-deep-noctea: var(--deep-noctea);
   --color-background: oklch(34.77% 0.035 269.42);
   --color-surface: oklch(95.75% 0.005 257.14);
   --color-muted: oklch(93.21% 0.007 257.95);
@@ -115,7 +117,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-primary;
+    @apply bg-deep-noctea text-primary;
     --sb-track-color: #000000;
     --sb-thumb-color: var(--violet);
     --sb-size: 6px;
