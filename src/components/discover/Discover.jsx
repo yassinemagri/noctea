@@ -48,7 +48,7 @@ const games = [
         {games.map((game, index) => (
           <Card
             key={index}
-            className="group relative overflow-hidden border-0 bg-background aspect-square sm:aspect-[4/5] transition-all duration-300 hover:shadow-xl"
+            className="group pb-0 px-4 relative overflow-hidden border-0 bg-background aspect-square sm:aspect-[4/5] transition-all duration-300 hover:shadow-xl"
           >
             {/* Background Image with Overlay */}
             <div
@@ -64,10 +64,10 @@ const games = [
               {game.name}
             </div>
 
-            <CardContent className="relative h-full p-6 flex flex-col justify-between text-white">
+            <CardContent className="relative h-full pb-4 flex flex-col justify-between text-white">
               {/* Content */}
               <div className="space-y-4 mt-auto">
-                <h3 className="text-2xl font-bold tracking-tight group-hover:text-emerald-400 transition-colors duration-300">
+                <h3 className="text-xl font-bold tracking-tight group-hover:text-emerald-400 transition-colors duration-300">
                   Minecraft {game.name}
                 </h3>
 
@@ -96,7 +96,7 @@ const games = [
                   <div className="w-full">
                     <Button
                       variant="outline"
-                      className="w-full bg-emerald-500/20 border-emerald-500/50 text-white hover:bg-emerald-500/30 hover:text-white transition-all duration-300 group/btn"
+                      className="w-full cursor-pointer bg-emerald-500/20 border-emerald-500/50 text-white hover:bg-emerald-500/30 hover:text-white transition-all duration-300 group/btn"
                       target="_blank"
                       onClick={()=> urlFn(game.url)}
                     >
@@ -108,7 +108,7 @@ const games = [
                     <Button
                       variant="outline"
                       size="icon"
-                      className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:text-white transition-all duration-300"
+                      className="bg-white/10 cursor-pointer border-white/20 text-white hover:bg-white/20 hover:text-white transition-all duration-300"
                       target="_blank"
                       aria-label={`Learn more about Minecraft ${game.name}`}
                     >

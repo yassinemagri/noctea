@@ -4,8 +4,8 @@ import ModsCard from "./ModsCard"
 export default function PopularAddons({type, modCategory, filteredData}) {
 
   return (
-    <section className="w-full py-8 bg-black text-white">
-      <div className="container mx-auto px-4">
+    <section className="w-full py- text-white">
+      <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-medium">{type} {modCategory} </h2>
           <Link to="/addons" className="text-sm text-gray-400 hover:text-white transition-colors">

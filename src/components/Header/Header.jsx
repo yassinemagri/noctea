@@ -7,7 +7,7 @@ const Header = () => {
   const [isActiveNav, setIsActiveNav] = useState(false);
 
   return (
-    <div className={`relative h-auto w-full`}>
+    <div className={`relative h-auto w-full mt-6`}>
       <div className="relative z-10 flex h-full flex-col justify-between">
         {/* nav bar */}
         <div className="bg-black/70 p-4 rounded-lg shadow-lg">

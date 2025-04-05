@@ -15,10 +15,10 @@ export default function Mods() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <>
       <div className="container mx-auto">
         {/* mods Filter */}
-        <div className="flex"><ListFilter size={20}/> <h1>Filter Mods:</h1> </div>
+        <div className="flex">
+          <ListFilter size={20}/> <h1>Filter Mods:</h1> </div>
         <Filter
           setActiveSort={setActiveSort}
           activeSort={activeSort}
@@ -35,6 +35,6 @@ export default function Mods() {
           ))}
         </div>
       </div>
-    </>
+
   );
 }

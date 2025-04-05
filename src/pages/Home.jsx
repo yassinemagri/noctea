@@ -57,15 +57,15 @@ const Home = () => {
   return (
     <div>
       <Discover />
-      <div className="grid grid-cols-[4fr_1fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px] ">
-        <div className="m-4">
+      <div className="grid grid-cols-[2fr_1fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px] ">
+        <div>
           <PlayerModList />
           {/*  */}
-          <div>{latestData}</div>
-          <div>{popularData}</div>
+          {latestData}
+          {popularData}
         </div>
         {/* Ad placeholder */}
-        <div className="m-4">
+        <div>
           <h1 className="font-bold text-lg mb-4">Sponsored</h1>
           <div className="bg-gray-200 border border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center min-h-[300px] mb-6">
             <div className="text-gray-500 text-center">

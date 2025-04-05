@@ -22,7 +22,7 @@ const ModsCard = ({ data, onDownload }) => {
   return (
     <Card
       key={data.id}
-      className="bg-zinc-900 p-0 border-zinc-800 overflow-hidden group transition-all duration-200 hover:shadow-lg hover:shadow-violet-900/20 hover:border-zinc-700"
+      className="bg-[rgba(255, 255, 255, 0)] p-0 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-[9.5px] borderp-0 overflow-hidden group transition-all duration-200 hover:shadow-lg hover:shadow-violet-900/20"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

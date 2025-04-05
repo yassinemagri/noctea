@@ -7,6 +7,7 @@
 
 :root {
   --violet: oklch(0.57 0.2263 262.12);
+  --skyblue: oklch(0.65 0.1864 262.24);
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.21 0.006 285.885);
@@ -42,11 +43,21 @@
 }
 @theme inline {
   --color-violet: var(--violet);
+  --color-skyblue: var(--skyblue);
+  /* Noctéa colors */
+  --color-background: oklch(34.77% 0.035 269.42);
+  --color-surface: oklch(95.75% 0.005 257.14);
+  --color-muted: oklch(93.21% 0.007 257.95);
+  --color-border: oklch(86.76% 0.057 260.22);
+  --color-success: oklch(78.96% 0.137 142.63);
+  --color-warning: oklch(82.83% 0.13 82.19);
+  --color-error: oklch(69.91% 0.189 27.33); 
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
+  /* --color-background: var(--background); */
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -61,7 +72,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-border: var(--border);
+  /* --color-border: var(--border); */
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);

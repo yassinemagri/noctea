@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Download, Star } from "lucide-react";
+import { ChevronLeft, ChevronRight, Download, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge";
 import { urlFn, formatNumber } from "@/data/helpers";
 import { Button } from "./ui/button";
+
 const PlayerModList = () => {
   const scrollContainerRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
@@ -15,42 +15,56 @@ const PlayerModList = () => {
     {
       id: "1",
       username: "OptiFine",
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr5_LvyfkDIfRwatYAQn91En5BtnqzI0zLzA&s",
-      badgeColor: "from-purple-600 to-yellow-500",
+      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr5_LvyfkDIfRwatYAQn91En5BtnqzI0zLzA&s",
+      badgeColor: "from-skyblue to-violet",
       downloadUrl: "https://optifine.net/downloads",
-      modCount: 23,
+      modVersion: "1.21.5",
       isVerified: true,
     },
     {
       id: "2",
-      username: "7amza_nej",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      badgeColor: "from-purple-600 to-yellow-400",
-      downloads: 8700,
-      rating: 4.5,
-      modCount: 15,
+      username: "Easy Netherite",
+      imageUrl: "https://i.ibb.co/xSVrmzb0/lolo.png",
+      badgeColor: "from-skyblue to-violet",
+      downloadUrl: "https://optifine.net/downloads",
+      modVersion: "1.21.5",
       isVerified: true,
     },
     {
       id: "3",
-      username: "zineb.elhaj",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      badgeColor: "from-purple-600 to-blue-500",
-      downloads: 32100,
-      rating: 4.9,
-      modCount: 42,
+      username: "Cinematic & Recording",
+      imageUrl: "https://i.ibb.co/xSVrmzb0/lolo.png",
+      badgeColor: "from-skyblue to-violet",
+      downloadUrl: "https://optifine.net/downloads",
+      modVersion: "1.21.5",
       isVerified: true,
     },
     {
       id: "4",
-      username: "iph.afree",
-      imageUrl: "/placeholder.svg?height=100&width=100",
-      badgeColor: "from-purple-600 to-orange-500",
-      downloads: 5400,
-      rating: 4.2,
-      modCount: 8,
-      isVerified: false,
+      username: "Building and Aesthetics",
+      imageUrl: "https://i.ibb.co/xSVrmzb0/lolo.png",
+      badgeColor: "from-skyblue to-violet",
+      downloadUrl: "https://optifine.net/downloads",
+      modVersion: "1.21.5",
+      isVerified: true,
+    },
+    {
+      id: "5",
+      username: "Survival/Adventure Series",
+      imageUrl: "https://i.ibb.co/xSVrmzb0/lolo.png",
+      badgeColor: "from-skyblue to-violet",
+      downloadUrl: "https://optifine.net/downloads",
+      modVersion: "1.21.5",
+      isVerified: true,
+    },
+    {
+      id: "6",
+      username: "Quality of Life / Content Creator Tools",
+      imageUrl: "https://i.ibb.co/xSVrmzb0/lolo.png",
+      badgeColor: "from-skyblue to-violet",
+      downloadUrl: "https://optifine.net/downloads",
+      modVersion: "1.21.5",
+      isVerified: true,
     },
   ];
 
@@ -82,7 +96,7 @@ const PlayerModList = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-4 py-6">
+    <div className="relative w-full max-w-4xl mx-auto p-1">
       <div className="relative">
         {/* Left scroll button */}
         <button
@@ -99,7 +113,7 @@ const PlayerModList = () => {
         {/* Scrollable container */}
         <div
           ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-4 pb-4 scrollbar-hide"
+          className="flex overflow-x-auto gap-4 p-2 scrollbar-hide"
           onScroll={handleScroll}
         >
           {users.map((user) => (
@@ -111,10 +125,10 @@ const PlayerModList = () => {
               )}
               onClick={() => setSelectedUser(user)}
             >
-              <div className="relative w-20 h-20 mb-2">
+              <div className="relative w-20 h-20 m-2">
                 {/* Hexagon badge shape with gradient border */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-b ${user.badgeColor} rounded-lg rotate-45 transform-gpu`}
+                  className={`absolute inset-0 bg-gradient-to-b ${user.badgeColor}  rounded-lg rotate-45 transform-gpu`}
                 ></div>
 
                 {/* Inner hexagon with black background */}
@@ -125,11 +139,11 @@ const PlayerModList = () => {
                   <img
                     src={user.imageUrl || "/placeholder.svg"}
                     alt={user.username}
-                    className="w-[120%] h-[120%] object-cover -rotate-45 transform-gpu origin-center"
+                    className="absolute rounded-full left-1/2 top-1/2 w-[120%] h-[120%] object-cover -translate-x-1/2 -translate-y-1/2 -rotate-45 transform-gpu origin-center"
                   />
                 </div>
               </div>
-              <p className="text-xs text-center text-white truncate w-20 p-2">
+              <p className="text-xs text-center text-white truncate w-30 p-2">
                 {user.username}
               </p>
             </div>
@@ -151,9 +165,9 @@ const PlayerModList = () => {
 
       {/* Selected user details */}
       {selectedUser && (
-        <div className="mt-8 bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+        <div className="bg-[#101219] rounded-lg p-4 border border-skyblue">
           <div className="flex items-center gap-4">
-            <div className="relative w-16 h-16">
+            <div className="relative w-15 h-16">
               {/* Hexagon badge shape with gradient border */}
               <div
                 className={`absolute inset-0 bg-gradient-to-b ${selectedUser.badgeColor} rounded-lg rotate-45 transform-gpu`}
@@ -163,7 +177,7 @@ const PlayerModList = () => {
               <div className="absolute inset-[2px] bg-black rounded-4xl rotate-45 transform-gpu"></div>
 
               {/* User image */}
-              <div className="absolute inset-[4px] overflow-hidden rounded-lg rotate-45 transform-gpu">
+              <div className="absolute inset-[2px] overflow-hidden rounded-lg rotate-45 transform-gpu">
                 <img
                   src={selectedUser.imageUrl || "/placeholder.svg"}
                   alt={selectedUser.username}
@@ -176,36 +190,20 @@ const PlayerModList = () => {
               <h3 className="text-xl font-bold flex items-center gap-2">
                 {selectedUser.username}
                 {selectedUser.isVerified && (
-                  <span className="bg-blue-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-3 w-3"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
+                  <ShieldCheck className="text-success" size={16}/>
                 )}
               </h3>
 
               <div className="flex items-center gap-4 mt-2 text-sm text-gray-300">
                 <div className="flex items-center gap-1">
-                  <Button onClick={() => urlFn(selectedUser.downloadUrl)}>
+                  <Button 
+                    className="bg-skyblue hover:bg-violet text-white cursor-pointer"
+                    onClick={() => urlFn(selectedUser.downloadUrl)}
+                  >
                     <Download size={14} />
                     Download
                   </Button>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Star size={14} className="text-yellow-500 fill-yellow-500" />
-                  <span>{selectedUser.rating}</span>
-                </div>
-                <div>
-                  <span>{selectedUser.modCount} مود</span>
+                  {selectedUser.modVersion}
                 </div>
               </div>
             </div>

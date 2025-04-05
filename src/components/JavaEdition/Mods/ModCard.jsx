@@ -17,7 +17,7 @@ function ModCard({ mod, activeLoader }) {
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false)
   
   return (
-    <Card className="bg-zinc-900 border-none max-lg:w-auto m-4">
+    <Card className="border-none max-lg:w-auto m-4">
       <CardContent className="flex gap-4 max-lg:flex-col max-lg:items-center">
         <div className="flex-shrink-0">
           <img
