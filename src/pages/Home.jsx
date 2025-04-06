@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getAllCategories } from "@/data/api";
 import SectionCard from "@/components/SectionCard";
 import { useLoaderData } from "react-router-dom";
-import Discover from "@/components/discover/Discover";
 import PlayerModList from "@/components/PlayerModList";
 export async function loader() {
   try {
