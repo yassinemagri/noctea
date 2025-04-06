@@ -56,32 +56,11 @@ const Home = () => {
   });
   return (
     <div>
-      <Discover />
-      <div className="grid grid-cols-[2fr_1fr] gap-x-[33px] gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px] ">
-        <div>
-          <PlayerModList />
-          {/*  */}
-          {latestData}
-          {popularData}
-        </div>
-        {/* Ad placeholder */}
-        <div>
-          <h1 className="font-bold text-lg mb-4">Sponsored</h1>
-          <div className="bg-gray-200 border border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center min-h-[300px] mb-6">
-            <div className="text-gray-500 text-center">
-              <p className="font-medium">Advertisement</p>
-              <p className="text-sm mt-2">Your ad could be here</p>
-            </div>
-          </div>
-
-          {/* Second ad placeholder */}
-          <div className="bg-gray-200 border border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center min-h-[250px] mt-6">
-            <div className="text-gray-500 text-center">
-              <p className="font-medium">Advertisement</p>
-              <p className="text-sm mt-2">300x250</p>
-            </div>
-          </div>
-        </div>
+      <div>
+        <PlayerModList />
+        {/*  */}
+        {latestData}
+        {popularData}
       </div>
     </div>
   );

@@ -2,13 +2,23 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/footer/Footer";
+import Discover from "@/components/discover/Discover";
+import AdPlaceholder from "@/components/AdPlaceholder";
 
 const Layout = () => {
   return (
     <main className="min-h-screen min-xl:px-20">
       <Header />
-      
-      <Outlet />
+
+      <Discover />
+      <div className="grid grid-cols-[2fr_1fr] gap-x-[33px] gap-y-0 md:grid-cols-[2fr_1fr] md:grid-rows-none md:gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px]">
+        <div>
+          <Outlet />
+        </div>
+        <div>
+          <AdPlaceholder />
+        </div>
+      </div>
       <Footer />
     </main>
   );

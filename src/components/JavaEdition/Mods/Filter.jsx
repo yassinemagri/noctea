@@ -121,7 +121,6 @@ export default function Filter ({ setActiveLoader, activeLoader, activeSort, set
     setActiveSort("Relevancy")
     setSearchQuery("")
     setFormSelect({})
-
     // Reset URL params
     const modLoaderFind = sorts.flatMap((loader) => loader.modLoaderIds)
     const loader = modLoaderFind.find((l) => l.name === "All")
@@ -129,7 +128,6 @@ export default function Filter ({ setActiveLoader, activeLoader, activeSort, set
       searchLoader(loader)
     }
   }
-
   return (
     <>
       {/* Floating filter button */}

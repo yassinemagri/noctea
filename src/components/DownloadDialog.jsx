@@ -15,49 +15,49 @@ import {
 } from "@/components/ui/dialog"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Progress } from "@/components/ui/progress"
-
+import { urlFn, formatNumber } from "@/data/helpers"
+import QRCode from "react-qr-code"
 
 export default function DownloadDialog({ mod, open, onOpenChange }) {
   const [modDetails, setModDetails] = useState(null)
   const [selectedVersion, setSelectedVersion] = useState("")
-  const [selectedLoader, setSelectedLoader] = useState("")
+  const [selectedLoader, setSelectedLoader] = useState("forge")
   const [isDownloading, setIsDownloading] = useState(false)
   const [downloadProgress, setDownloadProgress] = useState(0)
+  const [isQRCode, setIsQRCode] = useState(false)
 
-  // Reset download state when dialog closes
+  const downloadUrl =
+    mod.latestFiles[0].downloadUrl ??
+    `https://www.curseforge.com/api/v1/mods/${mod.id}/files/${mod.mainFileId}/download`
+
   useEffect(() => {
     if (!open) {
       setIsDownloading(false)
       setDownloadProgress(0)
+      setIsQRCode(false)
     }
   }, [open])
 
   useEffect(() => {
     if (mod?.latestFiles?.length > 0) {
-      setModDetails(mod.latestFiles[0])
-
-      // Set default selections if available
-      if (mod.latestFiles[0].gameVersions?.length > 0) {
-        setSelectedVersion(mod.latestFiles[0].gameVersions[0])
-      }
-      setSelectedLoader("forge") // Default to forge
+      const latest = mod.latestFiles[0]
+      setModDetails(latest)
+      setSelectedVersion(latest.gameVersions?.[0] ?? "")
+      setSelectedLoader("forge")
     }
   }, [mod])
 
   const handleDownload = () => {
     setIsDownloading(true)
+    urlFn(downloadUrl)
 
-    // Simulate download progress
     let progress = 0
     const interval = setInterval(() => {
       progress += Math.random() * 10
       if (progress >= 100) {
         progress = 100
         clearInterval(interval)
-        setTimeout(() => {
-          setIsDownloading(false)
-          // Here you would actually trigger the download
-        }, 500)
+        setTimeout(() => setIsDownloading(false), 500)
       }
       setDownloadProgress(progress)
     }, 200)
@@ -78,7 +78,7 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 py-3">
+        <div className="px-6 py-3 relative">
           <div className="flex flex-col sm:flex-row gap-2 items-center mb-4">
             <Select value={selectedVersion} onValueChange={setSelectedVersion}>
               <SelectTrigger className="w-full bg-zinc-800 border-zinc-700 focus:ring-violet-500">
@@ -93,14 +93,7 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
                   >
                     {version}
                   </SelectItem>
-                )) || (
-                  <SelectItem
-                    value="1.21.5"
-                    className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
-                  >
-                    1.21.5
-                  </SelectItem>
-                )}
+                ))}
               </SelectContent>
             </Select>
 
@@ -109,24 +102,15 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
                 <SelectValue placeholder="Select Mod Loader" />
               </SelectTrigger>
               <SelectContent className="bg-zinc-800 border-zinc-700">
-                <SelectItem
-                  value="forge"
-                  className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
-                >
-                  Forge
-                </SelectItem>
-                <SelectItem
-                  value="fabric"
-                  className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
-                >
-                  Fabric
-                </SelectItem>
-                <SelectItem
-                  value="quilt"
-                  className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
-                >
-                  Quilt
-                </SelectItem>
+                {["forge", "fabric", "quilt"].map((loader) => (
+                  <SelectItem
+                    key={loader}
+                    value={loader}
+                    className="text-white hover:bg-zinc-700 focus:bg-violet-500 data-[selected]:bg-violet-500 data-[selected]:text-white"
+                  >
+                    {loader.charAt(0).toUpperCase() + loader.slice(1)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -138,6 +122,7 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
                       variant="outline"
                       size="icon"
                       className="h-10 w-10 bg-transparent border-zinc-700 hover:bg-zinc-800"
+                      onClick={() => setIsQRCode(!isQRCode)}
                     >
                       <QrCode size={16} />
                     </Button>
@@ -155,6 +140,7 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
                       variant="outline"
                       size="icon"
                       className="h-10 w-10 bg-transparent border-zinc-700 hover:bg-zinc-800"
+                      onClick={() => window.open(downloadUrl, "_blank")}
                     >
                       <ExternalLink size={16} />
                     </Button>
@@ -167,7 +153,24 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
             </div>
           </div>
 
-          <div className="bg-zinc-800 p-4 rounded-md border border-zinc-700 transition-all hover:border-zinc-600">
+          {/* QR Code Display */}
+          {isQRCode && (
+            <div className="flex justify-center mt-3 relative">
+              <div className="bg-white p-3 rounded-md shadow-md relative">
+                <QRCode value={downloadUrl} size={160} />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute -top-3 -right-8 bg-zinc-800 text-white border border-zinc-600 hover:bg-zinc-700"
+                  onClick={() => setIsQRCode(false)}
+                >
+                  <X size={14} />
+                </Button>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-zinc-800 p-4 rounded-md border border-zinc-700 mt-4 hover:border-zinc-600">
             <div className="flex justify-between items-center">
               <div className="text-sm font-medium truncate max-w-[70%]">
                 {modDetails?.fileName || "mod-file-name.jar"}
@@ -184,12 +187,10 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
                     {vers}
                   </Badge>
                 ))}
-
                 <Badge variant="outline" className="bg-transparent border-zinc-600 text-zinc-400">
                   {selectedLoader || "Forge"}
                 </Badge>
               </div>
-
               <div className="text-xs text-zinc-400">
                 {modDetails?.fileDate
                   ? format(new Date(modDetails.fileDate), "MMM dd, yyyy")
@@ -216,17 +217,12 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
                 <span>Downloading...</span>
                 <span>{Math.round(downloadProgress)}%</span>
               </div>
-              <Progress value={downloadProgress} className="h-2 bg-zinc-700">
-                <div
-                  className="h-full bg-gradient-to-r from-violet-500 to-violet-400 rounded-full transition-all"
-                  style={{ width: `${downloadProgress}%` }}
-                />
-              </Progress>
+              <Progress value={downloadProgress} className="h-2 bg-zinc-700" />
             </div>
           )}
         </div>
 
-        <DialogFooter className="px-6 py-4 bg-zinc-950/50 border-t border-zinc-800 flex justify-between sm:justify-between">
+        <DialogFooter className="px-6 py-4 bg-zinc-950/50 border-t border-zinc-800 flex justify-between">
           <div className="flex items-center text-xs text-zinc-400">
             <Info size={12} className="mr-1" />
             Always backup your world before installing mods
@@ -253,5 +249,3 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
     </Dialog>
   )
 }
-
-
