@@ -31,14 +31,9 @@ export const getAllCategoriesWithLoader = async (modLoaderId) => {
     }
 }
 // It gets specific category by class Id and specific Mod loader optional
-export const getModByClassId = async (classId,modLoaderId) => {
-    if(modLoaderId) {
-        if(!(classId === 6 || classId === 4471)) {
-            throw new Error("This mod category doesn't have a mod loader!")
-        }
-    }
+export const getModByClassId = async (classId) => {
     try {
-        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}${modLoaderId && `&modLoaderType=${modLoaderId}`}`
+        const modByIdURL = `${baseURL}/v1/mods/search?gameId=${minecraftId}&classId=${classId}`
         const response = await fetch(modByIdURL, { method: "GET", headers: headers });
         if (!response.ok) {
             throw new Error("HTTP error! Status:", response.status);
