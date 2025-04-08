@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Progress } from "@/components/ui/progress"
-import { urlFn, formatNumber } from "@/data/helpers"
+import { urlFn, formatNumber,downloadUrl } from "@/data/helpers"
 import QRCode from "react-qr-code"
 
 export default function DownloadDialog({ mod, open, onOpenChange }) {
@@ -25,10 +25,6 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
   const [isDownloading, setIsDownloading] = useState(false)
   const [downloadProgress, setDownloadProgress] = useState(0)
   const [isQRCode, setIsQRCode] = useState(false)
-
-  const downloadUrl =
-    mod.latestFiles[0].downloadUrl ??
-    `https://www.curseforge.com/api/v1/mods/${mod.id}/files/${mod.mainFileId}/download`
 
   useEffect(() => {
     if (!open) {
@@ -49,7 +45,7 @@ export default function DownloadDialog({ mod, open, onOpenChange }) {
 
   const handleDownload = () => {
     setIsDownloading(true)
-    urlFn(downloadUrl)
+    downloadUrl(mod)
 
     let progress = 0
     const interval = setInterval(() => {

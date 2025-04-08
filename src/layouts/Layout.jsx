@@ -11,7 +11,8 @@ const Layout = () => {
       <Header />
 
       <Discover />
-      <div className="grid grid-cols-[2fr_1fr] gap-x-[33px] gap-y-0 md:grid-cols-[2fr_1fr] md:grid-rows-none md:gap-y-0 max-md:grid-cols-1 max-md:grid-rows-[auto_3fr] max-md:gap-y-[33px]">
+      <div
+           className="grid grid-cols-[2fr_1fr] max-xl:w-full max-md:grid-cols-1 gap-x-[33px] gap-y-0 md:grid-rows-none md:gap-y-0 max-md:grid-rows-[auto_3fr] max-lg:gap-x-4">
         <div>
           <Outlet />
         </div>

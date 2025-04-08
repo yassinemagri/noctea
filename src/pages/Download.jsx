@@ -1,12 +1,9 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Download, Clock, AlertCircle, CheckCircle2, RefreshCw, ArrowLeft, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import { Announcement } from "./announcement"
 import { cn } from "@/lib/utils"
 
 
@@ -20,7 +17,6 @@ export function DownloadPage({
   onBack,
 }) {
   const [countdown, setCountdown] = useState(3)
-  const [downloadState, setDownloadState] = useState("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
   // Start countdown when component mounts
@@ -29,48 +25,22 @@ export function DownloadPage({
   }, [])
 
   const startCountdown = () => {
-    setDownloadState("counting")
-    setCountdown(3)
+    setCountdown()
 
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer)
-          initiateDownload()
           return 0
         }
         return prev - 1
       })
-    }, 1000)
+    }, 6000)
 
     return () => clearInterval(timer)
   }
 
-  const initiateDownload = () => {
-    setDownloadState("downloading")
 
-    // Simulate download with 80% success rate
-    setTimeout(() => {
-      const success = Math.random() > 0.2 // 80% success rate for demo
-
-      if (success) {
-        setDownloadState("success")
-        // Actual download would happen here
-        try {
-          // For demo purposes, we'll just open the URL in a new tab
-          // In a real app, you'd use a proper download method
-          window.open(downloadUrl, "_blank")
-        } catch (error) {
-          console.error("Download failed:", error)
-          setDownloadState("error")
-          setErrorMessage("Failed to open download link")
-        }
-      } else {
-        setDownloadState("error")
-        setErrorMessage("Download failed. Server might be busy. Please try again.")
-      }
-    }, 1500)
-  }
 
   const tryAgain = () => {
     startCountdown()
@@ -218,28 +188,8 @@ export function DownloadPage({
                   {downloadState === "counting" ? `Wait (${countdown}s)` : "Start Download Now"}
                 </Button>
               )}
-
-              <Button
-                variant="outline"
-                className="border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-300"
-                onClick={() => window.open(downloadUrl, "_blank")}
-              >
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Direct Download Link
-              </Button>
             </div>
           </div>
-        </div>
-
-        {/* Safety notice */}
-        <div className="mt-6 max-w-md w-full">
-          <Announcement
-            id="safety-notice"
-            title="Safety Notice:"
-            message="Always scan downloaded files with antivirus software and backup your world before installing mods."
-            type="warning"
-            dismissible={false}
-          />
         </div>
       </main>
 
@@ -253,16 +203,3 @@ export function DownloadPage({
   )
 }
 
-// Example usage component
-export default function DownloadPageExample() {
-  return (
-    <DownloadPage
-      modName="OptiFine HD"
-      modVersion="1.21.5"
-      fileSize="4.2 MB"
-      fileName="OptiFine_1.21.5_HD_U_I7.jar"
-      downloadUrl="#download-link"
-      onBack={() => console.log("Back button clicked")}
-    />
-  )
-}

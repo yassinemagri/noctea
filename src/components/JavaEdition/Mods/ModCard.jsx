@@ -9,16 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import DownloadDialog from "@/components/DownloadDialog";
-import {formatNumber } from "@/data/helpers";
-import { Link } from "react-router-dom";
+import {formatNumber ,filterGameVersion} from "@/data/helpers";
 
 function ModCard({ mod, activeLoader }) {
-  // console.log(mod.latestFiles[0].gameVersions)
   const [isDownloadDialogOpen, setIsDownloadDialogOpen] = useState(false)
-  
+  // filters version and leader
+  const modLeader = filterGameVersion(mod.latestFiles[0].gameVersions)[0]
+  const gameVersion = filterGameVersion(mod.latestFiles[0].gameVersions)[1]
   return (
     <Card className="border-none max-lg:w-auto m-4">
-      <CardContent className="flex gap-4 max-lg:flex-col max-lg:items-center">
+      <CardContent className="flex gap-4 max-lg:items-start">
         <div className="flex-shrink-0">
           <img
             src={mod.logo?.thumbnailUrl || ""}
@@ -28,12 +28,11 @@ function ModCard({ mod, activeLoader }) {
             className="rounded-md"
           />
         </div>
-
         <div className="flex-grow">
           <div className="flex justify-between max-lg:flex-col max-xl:flex-col">
-            <div>
-              <h3 className="text-xl font-semibold max-sm:flex-row">{mod.name} <span className="text-violet text-sm">By {mod.authors[0].name}</span></h3>
-              <p className="text-gray-400 mt-2 w-80 overflow-hidden text-ellipsis h-auto whitespace-nowrap max-sm:w-80 max-sm:mb-5">
+            <div> 
+              <h3 className="text-xl font-semibold max-lg:flex-col max-sm:flex-row"><span>{mod.name}</span> <span className="text-violet text-sm">By {mod.authors[0].name}</span></h3>
+              <p className="text-gray-400 mt-2 max-lg:w-60 w-80 overflow-hidden text-ellipsis h-auto whitespace-nowrap max-sm:w-80 max-sm:mb-5">
                 {mod.summary}
               </p>
             </div>
@@ -47,9 +46,6 @@ function ModCard({ mod, activeLoader }) {
                 <Download size={16} className="mr-1 " />
                 Download
               </Button>
-              <Link to={`/mods/${mod.id}`}>
-                Detail
-              </Link>
             </div>
           </div>
 
@@ -71,9 +67,15 @@ function ModCard({ mod, activeLoader }) {
           <div className="mt-2">
             <Badge
               variant="default"
+              className="bg-violet hover:bg-violet text-white mr-2"
+            >
+              {activeLoader === "all" ? activeLoader : `${modLeader}`}
+            </Badge>
+            <Badge
+              variant="default"
               className="bg-violet hover:bg-violet text-white"
             >
-              {activeLoader}
+              {gameVersion}
             </Badge>
           </div>
         </div>
